@@ -42,12 +42,12 @@ export function BookingForm() {
       ``,
       `👤 Mi nombre: ${data.name}`,
       `🐶 Mascota: ${data.petName}`,
-      `🐾 Raza: ${data.breed}`,
-      `📅 Edad: ${data.age}`,
+      `🦴 Raza: ${data.breed}`,
+      `🎂 Edad: ${data.age}`,
       `✅ Servicio: ${data.service}`,
       `📅 Check-in: ${data.checkin}`,
-      data.checkout ? `📅 Check-out: ${data.checkout}` : "",
-      data.notes ? `📝 Notas: ${data.notes}` : "",
+      data.checkout ? `🏁 Check-out: ${data.checkout}` : "",
+      data.notes ? `💬 Notas: ${data.notes}` : "",
     ]
       .filter(Boolean)
       .join("\n");
