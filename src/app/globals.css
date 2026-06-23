@@ -1,26 +1,45 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand palette */
+  --color-cream: #FFF8F5;
+  --color-cream-dark: #F5EDE8;
+  --color-cream-border: #EDD8CC;
+  --color-rose: #D4607A;
+  --color-rose-hover: #BE4F68;
+  --color-rose-light: #F4A5A5;
+  --color-rose-pale: #FDDDD5;
+  --color-peach: #F0C4B4;
+  --color-brown: #C4956A;
+  --color-brown-dark: #4A2214;
+  --color-brown-text: #3D1F0E;
+
+  /* Typography */
+  --font-heading: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FFF8F5;
+  color: #3D1F0E;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.blob {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
 }
