@@ -1,0 +1,350 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Me",
+    "services": "Services",
+    "gallery": "Gallery",
+    "faq": "FAQ",
+    "book": "Book a visit"
+  },
+  "hero": {
+    "badge": "Medellín · Care with love",
+    "title": "Your pet,",
+    "title_highlight": "our family",
+    "subtitle": "Personalized care. Love you can feel.",
+    "description": "Professional pet care with veterinary and groomer training. One pet at a time, always. Because your best friend deserves the best.",
+    "cta_book": "Book your visit",
+    "cta_services": "See services"
+  },
+  "trust": {
+    "item1": "Veterinary Assistant",
+    "item2": "Certified Groomer",
+    "item3": "One pet at a time",
+    "item4": "Daily photo reports"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Complete and personalized care for your best friend",
+    "from": "From",
+    "included": "Includes",
+    "conditions_label": "Conditions",
+    "see_more": "See details",
+    "see_less": "Hide",
+    "items": [
+      {
+        "id": "hospedaje",
+        "name": "Home Boarding",
+        "description": "Your pet will be our only guest, receiving personalized attention, comfort, and a calm stress-free environment. Discounts and other benefits available.",
+        "detail": "Your pet becomes part of my family during their stay. Transportation is not included — you drop off and pick up your furry friend.",
+        "card_includes": [
+          "Pet sitting at my home",
+          "Short and long stays",
+          "Medication administration",
+          "Exclusive attention (one pet at a time)",
+          "Walks, play, and daily updates"
+        ],
+        "includes": [
+          "Comfortable, clean, and safe accommodation",
+          "Daily walks, feeding, and playtime",
+          "Daily photos and updates so you feel close",
+          "Constant supervision (one pet at a time only)",
+          "Medication administration if needed"
+        ],
+        "ideal": "Owners looking for a cozy, calm home environment — no cages, no overcrowding.",
+        "price_large": "60.000",
+        "price_small": "40.000",
+        "note": "Large/active breeds (husky, pitbull, rottweiler) from $60k · Small calm breeds from $40k",
+        "conditions": [
+          "Price varies if more than one pet",
+          "Transportation is charged separately if you need pickup",
+          "High-energy breed pricing may vary"
+        ],
+        "unit": "night",
+        "icon": "home"
+      },
+      {
+        "id": "pernocta",
+        "name": "In-Home Overnight Care",
+        "description": "I come to your home to care for your pet in the comfort of their own environment. (Transportation not included. Conditions apply.)",
+        "detail": "This service goes far beyond just \"sleeping over\". It means absolute and exclusive dedication to your pet throughout the night, ensuring companionship, safety, and their routines in a familiar setting.\n\nDue to the logistics, responsibility, and level of commitment required, this service is subject to specific conditions.",
+        "card_includes": [
+          "Overnight stay at your home",
+          "Nighttime companionship",
+          "Full daily routines",
+          "Extended supervision",
+          "Multi-day stays"
+        ],
+        "includes": [
+          "Full availability from dusk to the following morning",
+          "Walks, feeding, play, and overnight companionship",
+          "Continuous and exclusive supervision",
+          "Your home cared for with the same commitment",
+          "Service fully dedicated to your pets"
+        ],
+        "why_higher": [
+          "Extended full availability: I stay at your home from dusk to the following morning",
+          "Continuous attention: includes walks, feeding, play, companionship, and overnight supervision",
+          "Personal exposure and adaptation: being in a different environment implies an additional level of responsibility, trust, and adaptation",
+          "Respect for your space: I care for your home with the same seriousness I give to your pet",
+          "Exclusive service: during the overnight stay, my time is entirely dedicated to your pets"
+        ],
+        "price_large": "100.000",
+        "note": "Price may vary by number of pets, energy level, or special requirements. Transport not included.",
+        "conditions": [
+          "Only for homes with 2+ pets",
+          "Minimum 30 consecutive days",
+          "Booking required at least 2–3 weeks in advance",
+          "Subject to prior evaluation and availability",
+          "Pets with established routines and stable behavior"
+        ],
+        "footer_note": "This service reflects not only the care of your pet, but also the commitment, trust, and willingness to adapt to your space so your companion is never alone.",
+        "unit": "night",
+        "icon": "moon"
+      },
+      {
+        "id": "horas",
+        "name": "Visits & Hourly Care",
+        "description": "Need someone to visit your pet during the day? I offer visits for feeding, companionship, walks, playtime, and general care.",
+        "detail": "Perfect for people who need occasional support without full-time care. Very useful for cats, independent dogs, or when you're out for just a few hours.\n\nA transportation fee applies based on location.",
+        "card_includes": [
+          "Daily visits",
+          "Walks",
+          "Feeding",
+          "Litter box cleaning",
+          "Cat care",
+          "Daytime drop-in care"
+        ],
+        "includes": [
+          "Visits to your home (two or three times a day)",
+          "30–45 min walks with water, play, and exercise",
+          "Food bowl, water, and litter check (for cats)",
+          "Loving attention, no rushing"
+        ],
+        "price_large": "80.000",
+        "note": "Transportation fee applies based on location.",
+        "conditions": [
+          "Certain conditions apply",
+          "High-energy breed pricing may vary"
+        ],
+        "unit": "day",
+        "icon": "clock"
+      },
+      {
+        "id": "eventos",
+        "name": "Event Pet Companion",
+        "description": "Want your pet to be part of your wedding, birthday, family reunion, or special celebration? I'll care for them during the event so you can enjoy every moment without worrying about walks, needs, hydration, or supervision. Your pet can join you for the important moments — photos, celebrations — while receiving all the attention they need.",
+        "detail": "Your pet is part of the family and deserves to be present at the most important moments. With this service, you can include your furry friend at weddings, proposals, photo sessions, birthdays, and special events without worrying about their care during the celebration.\n\nI'll be present throughout the event to accompany and supervise your pet, letting you fully enjoy your day while your best friend receives personalized attention, love, and safety.",
+        "card_includes": [
+          "Weddings",
+          "Birthdays",
+          "Photo sessions",
+          "Proposals",
+          "Pet-friendly corporate events"
+        ],
+        "includes": [
+          "Constant supervision throughout the event",
+          "Walks and bathroom breaks",
+          "Water, snacks, and personalized attention",
+          "Support during photos and special moments",
+          "Monitoring for stress or discomfort signals",
+          "Updates and photos for your peace of mind",
+          "Medication administration if needed"
+        ],
+        "ideal": "Weddings · Proposals · Photo sessions · Birthdays · Family reunions · Pet-friendly social and corporate events",
+        "benefits": [
+          "Enjoy your event completely worry-free",
+          "No need to delegate pet care to family or guests",
+          "Your pet participates safely and comfortably",
+          "Personalized attention focused on their emotional well-being"
+        ],
+        "price_large": "80.000",
+        "note": "First 2h · $30.000/extra hour · 6h+ or multiple pets: custom quote",
+        "conditions": [
+          "Service provided only during the event",
+          "Pet must have up-to-date vaccinations and good health",
+          "Prior meet & greet recommended to learn routines and personality",
+          "Subject to date and location availability",
+          "High-energy breed pricing may vary"
+        ],
+        "footer_note": "Because special moments are better enjoyed when you know your pet is safe, calm, and cared for.",
+        "unit": "event",
+        "icon": "camera"
+      },
+      {
+        "id": "banos",
+        "name": "Baths & Grooming",
+        "description": "We help keep your pet clean, fresh, and comfortable with our bathing and hygiene services.",
+        "detail": "A complete hygiene service so your furry friend is always presentable and healthy.",
+        "card_includes": [
+          "Baths",
+          "Brushing",
+          "Basic cleaning",
+          "Hygiene care"
+        ],
+        "includes": [
+          "Full bath with coat-appropriate products",
+          "Drying and brushing",
+          "Ear cleaning",
+          "Nail trimming"
+        ],
+        "price_large": "",
+        "note": "Fee depends on breed and size",
+        "conditions": ["Price varies by breed, size, and coat condition"],
+        "unit": "",
+        "icon": "droplets"
+      }
+    ]
+  },
+  "certifications": {
+    "title": "My Certifications",
+    "subtitle": "Professional training that backs every service I offer",
+    "cta": "View certificate",
+    "items": [
+      {
+        "id": "auxiliar-veterinaria",
+        "name": "Veterinary Assistant",
+        "institution": "Certifying institution",
+        "year": "",
+        "description": "Training in basic care, medication administration, first aid, and clinical animal handling.",
+        "image": ""
+      },
+      {
+        "id": "groomer",
+        "name": "Certified Groomer",
+        "institution": "Certifying institution",
+        "year": "",
+        "description": "Professional canine grooming: baths, cuts, brushing, ear cleaning, and coat care.",
+        "image": ""
+      },
+      {
+        "id": "primeros-auxilios",
+        "name": "Animal First Aid",
+        "institution": "Certifying institution",
+        "year": "",
+        "description": "Emergency response training: animal CPR, poisoning management, and patient stabilization.",
+        "image": ""
+      }
+    ]
+  },
+  "about": {
+    "title": "Hi, I'm Anais",
+    "subtitle": "Your ally in pet care",
+    "description": "I'm passionate about animal welfare, trained as a Veterinary Assistant and certified Groomer. I believe every pet deserves care as special as the love you give at home — that's why I work with one pet at a time.",
+    "description2": "My home is their home. Walks, playtime, cuddles, and daily photo reports so you can enjoy your trip knowing your furry friend is happy too.",
+    "cert1": "Veterinary Assistant",
+    "cert2": "Certified Groomer",
+    "cert3": "Animal First Aid",
+    "years": "3+ years of experience"
+  },
+  "requirements": {
+    "title": "What we need to know",
+    "subtitle": "To care for your pet as they deserve, we ask for some basic requirements",
+    "items": [
+      {
+        "icon": "syringe",
+        "title": "Up-to-date vaccines",
+        "description": "Parvovirus, distemper, hepatitis, and rabies. We'll need to see the vet records."
+      },
+      {
+        "icon": "bug",
+        "title": "Dewormed",
+        "description": "Internal and external antiparasitic treatment current. Preferably no more than 3 months old."
+      },
+      {
+        "icon": "utensils",
+        "title": "Their own food",
+        "description": "Bring your pet's food so we don't change their diet and cause any discomfort."
+      },
+      {
+        "icon": "heart",
+        "title": "Friendly temperament",
+        "description": "We don't accept pets with a history of aggression. Everyone's safety comes first."
+      },
+      {
+        "icon": "calendar",
+        "title": "Advance booking",
+        "description": "At least 2-3 weeks in advance to ensure availability."
+      },
+      {
+        "icon": "clipboard",
+        "title": "Meet & greet",
+        "description": "We do a free introductory visit so your pet can get familiar with me and the space."
+      }
+    ]
+  },
+  "booking": {
+    "title": "Book your visit",
+    "subtitle": "Tell us about your pet and we'll find the perfect service",
+    "name_label": "Your name",
+    "name_placeholder": "What's your name?",
+    "pet_name_label": "Pet's name",
+    "pet_name_placeholder": "What's your pet's name?",
+    "breed_label": "Breed",
+    "breed_placeholder": "E.g.: Golden Retriever, Mixed...",
+    "age_label": "Age",
+    "age_placeholder": "E.g.: 2 years",
+    "service_label": "Service",
+    "service_placeholder": "Select a service",
+    "checkin_label": "Check-in date",
+    "checkout_label": "Check-out date",
+    "notes_label": "Additional notes",
+    "notes_placeholder": "Allergies, medications, special routines...",
+    "submit": "Send via WhatsApp",
+    "services": [
+      "Home Boarding",
+      "In-Home Overnight Care",
+      "Hourly Care",
+      "Event Pet Companion",
+      "Baths & Grooming"
+    ]
+  },
+  "gallery": {
+    "title": "Special moments",
+    "subtitle": "Real photos of the furry friends who have stayed with us"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Everything you need to know before trusting me with your pet",
+    "items": [
+      {
+        "q": "How many pets do you care for at once?",
+        "a": "Only one pet at a time. This ensures 100% personalized attention and a stress-free experience for your furry friend."
+      },
+      {
+        "q": "What does the boarding service include?",
+        "a": "Daily walks, feeding according to their routine, playtime, constant companionship, and daily photo reports so you can stay worry-free."
+      },
+      {
+        "q": "Can you administer medications?",
+        "a": "Yes. I have training as a Veterinary Assistant, so I can safely administer oral, topical, and injectable medications."
+      },
+      {
+        "q": "Where are you located?",
+        "a": "In Medellín. I offer transportation service at an additional cost to pick up and deliver your pet."
+      },
+      {
+        "q": "How far in advance should I book?",
+        "a": "At least 2-3 weeks in advance to ensure availability, especially during peak seasons."
+      },
+      {
+        "q": "Do you do a meet and greet?",
+        "a": "Yes, and it's free. Before the first stay, we do a meet and greet visit so your pet can get comfortable with me and the space."
+      },
+      {
+        "q": "What happens in case of a veterinary emergency?",
+        "a": "I have trusted veterinary clinics nearby. My training helps me identify warning signs and act quickly. I always contact you immediately."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact me",
+    "whatsapp": "Message me on WhatsApp",
+    "instagram": "@anaispcareservices",
+    "email": "anaisrodriguez2@icloud.com",
+    "location": "Medellín, Colombia"
+  },
+  "footer": {
+    "tagline": "Care with love. Always.",
+    "rights": "All rights reserved."
+  }
+}

@@ -1,0 +1,36 @@
+import { defineConfig } from "sanity";
+import { structureTool } from "sanity/structure";
+import { visionTool } from "@sanity/vision";
+import { schemaTypes } from "./src/sanity/schemaTypes";
+
+export default defineConfig({
+  name: "anaispetcare",
+  title: "Anais Pet Care · CMS",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "placeholder",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
+  basePath: "/studio",
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title("Panel de contenido")
+          .items([
+            S.listItem()
+              .title("⚙️ Configuración general")
+              .child(S.document().schemaType("settings").documentId("settings")),
+            S.divider(),
+            S.listItem()
+              .title("🐾 Servicios")
+              .child(S.documentTypeList("service").title("Servicios")),
+            S.listItem()
+              .title("📸 Galería de fotos")
+              .child(S.documentTypeList("galleryImage").title("Fotos")),
+            S.listItem()
+              .title("❓ Preguntas frecuentes")
+              .child(S.documentTypeList("faqItem").title("Preguntas")),
+          ]),
+    }),
+    visionTool(),
+  ],
+  schema: { types: schemaTypes },
+});

@@ -1,0 +1,350 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "services": "Servicios",
+    "gallery": "Galería",
+    "faq": "Preguntas",
+    "book": "Agendar visita"
+  },
+  "hero": {
+    "badge": "Medellín · Cuidado con amor",
+    "title": "Tu mascota,",
+    "title_highlight": "nuestra familia",
+    "subtitle": "Atención personalizada. Amor que se siente.",
+    "description": "Cuidado profesional con formación veterinaria y groomer. Una mascota a la vez, siempre. Porque tu mejor amigo merece lo mejor.",
+    "cta_book": "Agenda tu visita",
+    "cta_services": "Ver servicios"
+  },
+  "trust": {
+    "item1": "Auxiliar Veterinaria",
+    "item2": "Groomer Certificada",
+    "item3": "Una mascota a la vez",
+    "item4": "Reportes diarios"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Cuidado completo y personalizado para tu mejor amigo",
+    "from": "Desde",
+    "included": "Incluye",
+    "conditions_label": "Condiciones",
+    "see_more": "Ver detalles",
+    "see_less": "Ocultar",
+    "items": [
+      {
+        "id": "hospedaje",
+        "name": "Hospedaje para Mascotas en Mi Hogar",
+        "description": "Tu mascota será nuestro único huésped, recibiendo atención personalizada, comodidad y un ambiente tranquilo y libre de estrés. Ofrecemos descuentos y otros beneficios.",
+        "detail": "Tu mascota será parte de mi familia durante su estadía. Este servicio no incluye transporte porque tú me traes y recoges a tu peludo.",
+        "card_includes": [
+          "Pet Sitting en tu casa",
+          "Estadías cortas y largas",
+          "Administración de medicamentos",
+          "Atención exclusiva (una mascota a la vez)",
+          "Paseos, juegos y seguimiento diario"
+        ],
+        "includes": [
+          "Alojamiento cómodo, limpio y seguro",
+          "Rutina de paseos, alimentación y juegos",
+          "Fotos y actualizaciones diarias para que te sientas cerca",
+          "Supervisión constante (solo cuido una mascota a la vez)",
+          "Aplicación de medicamentos si necesitas"
+        ],
+        "ideal": "Dueños que buscan un ambiente hogareño y tranquilo, sin jaulas ni sobrecupo.",
+        "price_large": "60.000",
+        "price_small": "40.000",
+        "note": "Perros grandes/activos (husky, pitbull, rottweiler) desde $60k · Perros pequeños y tranquilos desde $40k",
+        "conditions": [
+          "Si es más de una mascota, el precio varía",
+          "Si necesitas que recoja a tu mascota, transporte es por aparte",
+          "Mascotas de raza con mucha energía, el precio puede variar"
+        ],
+        "unit": "noche",
+        "icon": "home"
+      },
+      {
+        "id": "pernocta",
+        "name": "Cuidado de Mascotas en Tu Hogar",
+        "description": "Voy a tu casa para cuidar de tu peludo en la comodidad de su propio entorno. (El transporte no está incluido. Aplican ciertas condiciones.)",
+        "detail": "Este servicio va mucho más allá de \"quedarse a dormir\". Implica una dedicación absoluta y exclusiva para tu mascota durante toda la noche, garantizando compañía, seguridad y el cumplimiento de sus rutinas en un entorno familiar.\n\nDebido a la logística, responsabilidad y nivel de compromiso que requiere, este servicio está sujeto a condiciones específicas.",
+        "card_includes": [
+          "Pernocta en casa del cliente",
+          "Acompañamiento nocturno",
+          "Rutinas completas",
+          "Supervisión prolongada",
+          "Estadías de varios días"
+        ],
+        "includes": [
+          "Disponibilidad total desde el atardecer hasta la mañana siguiente",
+          "Paseos, alimentación, juegos y acompañamiento nocturno",
+          "Supervisión continua y exclusiva para tus mascotas",
+          "Cuido tu hogar con la misma seriedad que a tu mascota",
+          "Servicio completamente dedicado a tus mascotas"
+        ],
+        "why_higher": [
+          "Disponibilidad total y prolongada: permanezco en tu hogar desde el atardecer hasta la mañana siguiente",
+          "Atención continua: incluye paseos, alimentación, juegos, acompañamiento y supervisión nocturna",
+          "Exposición y adaptación personal: al estar en un entorno distinto a mi hogar, implica un nivel adicional de responsabilidad, confianza y adaptación",
+          "Respeto por tu espacio: cuido tu hogar con la misma seriedad y compromiso con el que cuido a tu mascota",
+          "Servicio exclusivo: durante la pernocta, mi tiempo está completamente destinado a tus mascotas"
+        ],
+        "price_large": "100.000",
+        "note": "El valor puede variar según cantidad de mascotas, nivel de energía o requerimientos especiales. Transporte no incluido.",
+        "conditions": [
+          "Solo hogares con más de 2 mascotas",
+          "Estadías mínimas de 30 días continuos",
+          "Reserva anticipada de mínimo 2 a 3 semanas",
+          "Sujeto a evaluación previa del caso y disponibilidad",
+          "Mascotas con rutinas definidas y comportamiento estable"
+        ],
+        "footer_note": "Este servicio refleja no solo el cuidado de tu mascota, sino también el compromiso, la confianza y la disposición de adaptarme a tu espacio para asegurar que tu compañero nunca esté solo.",
+        "unit": "noche",
+        "icon": "moon"
+      },
+      {
+        "id": "horas",
+        "name": "Visitas y Cuidados por Horas",
+        "description": "¿Necesitas que alguien visite a tu mascota durante el día? Ofrezco visitas por horas para alimentación, compañía, paseos, tiempo de juego y cuidados generales.",
+        "detail": "Perfecto para personas que necesitan apoyo puntual sin cuidado de tiempo completo. Este servicio es muy útil para gatos, perritos independientes o cuando estás fuera por pocas horas.\n\nSe aplica un cargo de transporte según la ubicación.",
+        "card_includes": [
+          "Visitas diarias",
+          "Paseos",
+          "Alimentación",
+          "Limpieza de areneros",
+          "Atención para gatos",
+          "Cuidado puntual durante el día"
+        ],
+        "includes": [
+          "Visitas a tu domicilio (dos o tres veces al día)",
+          "Paseos de 30–45 min con agua, juegos y ejercicio",
+          "Revisión de comederos, agua limpia y arena (en caso de gatos)",
+          "Atención amorosa, sin prisas"
+        ],
+        "price_large": "80.000",
+        "note": "Se aplica cargo de transporte según ubicación.",
+        "conditions": [
+          "Ciertas condiciones aplican",
+          "Mascotas de raza con mucha energía, el precio puede variar"
+        ],
+        "unit": "día",
+        "icon": "clock"
+      },
+      {
+        "id": "eventos",
+        "name": "Acompañamiento de Mascotas en Eventos",
+        "description": "¿Quieres que tu mascota forme parte de tu boda, cumpleaños, reunión familiar o celebración especial? Yo me encargo de cuidarla durante el evento para que puedas disfrutar cada momento sin preocuparte por paseos, necesidades, hidratación o supervisión. Tu mascota podrá acompañarte en los momentos importantes, como fotos y celebraciones, mientras recibe toda la atención que necesita.",
+        "detail": "Tu mascota también forma parte de la familia y merece estar presente en los momentos más importantes. Con este servicio, podrás incluir a tu peludo en bodas, pedidas de mano, sesiones de fotos, cumpleaños y eventos especiales, sin tener que preocuparte por su cuidado durante la celebración.\n\nYo estaré presente durante el evento para acompañar y supervisar a tu mascota, permitiéndote disfrutar plenamente de tu día mientras tu mejor amigo recibe atención personalizada, cariño y seguridad.",
+        "card_includes": [
+          "Bodas",
+          "Cumpleaños",
+          "Sesiones de fotos",
+          "Pedidas de mano",
+          "Eventos corporativos pet-friendly"
+        ],
+        "includes": [
+          "Supervisión constante durante el evento",
+          "Paseos y pausas para hacer sus necesidades",
+          "Agua, snacks y atención personalizada",
+          "Apoyo durante fotografías y momentos especiales",
+          "Monitoreo de señales de estrés o incomodidad",
+          "Actualizaciones y fotos para tu tranquilidad",
+          "Aplicación de medicamentos si es necesario"
+        ],
+        "ideal": "Bodas · Pedidas de mano · Sesiones fotográficas · Cumpleaños · Reuniones familiares · Eventos sociales y corporativos pet-friendly",
+        "benefits": [
+          "Disfrutas tu evento sin preocupaciones",
+          "Evitas delegar el cuidado de tu mascota a familiares o invitados",
+          "Tu mascota participa de forma segura y cómoda",
+          "Atención personalizada enfocada en su bienestar emocional"
+        ],
+        "price_large": "80.000",
+        "note": "Primeras 2h · $30.000/hora adicional · +6h o múltiples mascotas: cotización personalizada",
+        "conditions": [
+          "El servicio se presta únicamente durante el evento",
+          "La mascota debe contar con vacunación al día y buen estado de salud",
+          "Se recomienda reunión previa para conocer rutina, personalidad y necesidades de la mascota",
+          "Sujeto a disponibilidad de fecha y ubicación",
+          "Mascotas de raza con mucha energía, el precio puede variar"
+        ],
+        "footer_note": "Porque los momentos especiales se disfrutan mejor cuando sabes que tu mascota está segura, tranquila y acompañada.",
+        "unit": "evento",
+        "icon": "camera"
+      },
+      {
+        "id": "banos",
+        "name": "Baños e Higiene para Mascotas",
+        "description": "Ayudamos a que tu mascota se mantenga limpia, fresca y cómoda con nuestros servicios de baño e higiene.",
+        "detail": "Servicio de higiene completo para que tu peludo esté siempre presentable y saludable.",
+        "card_includes": [
+          "Baños",
+          "Cepillado",
+          "Limpieza básica",
+          "Cuidado de higiene"
+        ],
+        "includes": [
+          "Baño completo con productos adecuados para su pelaje",
+          "Secado y cepillado",
+          "Limpieza de oídos",
+          "Corte de uñas"
+        ],
+        "price_large": "",
+        "note": "Consultar tarifa según raza y tamaño",
+        "conditions": ["Precio varía según raza, tamaño y estado del pelaje"],
+        "unit": "",
+        "icon": "droplets"
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Mis Certificaciones",
+    "subtitle": "Formación profesional que respalda cada servicio que ofrezco",
+    "cta": "Ver certificado",
+    "items": [
+      {
+        "id": "auxiliar-veterinaria",
+        "name": "Auxiliar Veterinaria",
+        "institution": "Institución certificadora",
+        "year": "",
+        "description": "Formación en cuidados básicos, administración de medicamentos, primeros auxilios y manejo clínico de animales.",
+        "image": ""
+      },
+      {
+        "id": "groomer",
+        "name": "Groomer Certificada",
+        "institution": "Institución certificadora",
+        "year": "",
+        "description": "Capacitación profesional en estética canina: baños, cortes, cepillado, limpieza de oídos y cuidado del pelaje.",
+        "image": ""
+      },
+      {
+        "id": "primeros-auxilios",
+        "name": "Primeros Auxilios Animales",
+        "institution": "Institución certificadora",
+        "year": "",
+        "description": "Entrenamiento en respuesta de emergencias, RCP animal, manejo de intoxicaciones y estabilización de pacientes.",
+        "image": ""
+      }
+    ]
+  },
+  "about": {
+    "title": "Hola, soy Anais",
+    "subtitle": "Tu aliada en el cuidado de peludos",
+    "description": "Soy una apasionada del bienestar animal con formación como Auxiliar Veterinaria y Groomer certificada. Creo que cada mascota merece un cuidado tan especial como el que le das en casa — por eso trabajo con una sola mascota a la vez.",
+    "description2": "Mi hogar es su hogar. Paseos, juegos, mimos y reportes fotográficos diarios para que tú disfrutes tu viaje tranquilo y tu peludo también.",
+    "cert1": "Auxiliar Veterinaria",
+    "cert2": "Groomer Certificada",
+    "cert3": "Primeros Auxilios Animales",
+    "years": "3+ años de experiencia"
+  },
+  "requirements": {
+    "title": "Lo que necesitamos saber",
+    "subtitle": "Para cuidar a tu peludo como merece, pedimos unos requisitos básicos",
+    "items": [
+      {
+        "icon": "syringe",
+        "title": "Vacunas al día",
+        "description": "Parvovirus, moquillo, hepatitis y rabia. Necesitamos ver el carnet veterinario."
+      },
+      {
+        "icon": "bug",
+        "title": "Desparasitado",
+        "description": "Antiparasitario interno y externo vigente. Preferiblemente máximo 3 meses de antigüedad."
+      },
+      {
+        "icon": "utensils",
+        "title": "Su propia comida",
+        "description": "Trae la comida de tu peludo para no cambiar su dieta ni causarle malestares."
+      },
+      {
+        "icon": "heart",
+        "title": "Temperamento sociable",
+        "description": "No recibimos mascotas con historial de agresividad. La seguridad de todos es primero."
+      },
+      {
+        "icon": "calendar",
+        "title": "Reserva anticipada",
+        "description": "Mínimo con 2-3 semanas de anticipación para garantizar disponibilidad."
+      },
+      {
+        "icon": "clipboard",
+        "title": "Visita previa",
+        "description": "Hacemos una visita de conocimiento sin costo para que tu peludo se familiarice conmigo."
+      }
+    ]
+  },
+  "booking": {
+    "title": "Agenda tu visita",
+    "subtitle": "Cuéntanos sobre tu peludo y encontramos el servicio perfecto",
+    "name_label": "Tu nombre",
+    "name_placeholder": "¿Cómo te llamas?",
+    "pet_name_label": "Nombre de tu mascota",
+    "pet_name_placeholder": "¿Cómo se llama tu peludo?",
+    "breed_label": "Raza",
+    "breed_placeholder": "Ej: Golden Retriever, Mestizo...",
+    "age_label": "Edad",
+    "age_placeholder": "Ej: 2 años",
+    "service_label": "Servicio",
+    "service_placeholder": "Selecciona un servicio",
+    "checkin_label": "Fecha de Check-in",
+    "checkout_label": "Fecha de Check-out",
+    "notes_label": "Notas adicionales",
+    "notes_placeholder": "Alergias, medicamentos, rutinas especiales...",
+    "submit": "Enviar por WhatsApp",
+    "services": [
+      "Hospedaje en Mi Hogar",
+      "Cuidado con Pernocta (En Tu Casa)",
+      "Cuidados por Horas",
+      "Acompañamiento en Bodas y Eventos",
+      "Baños e Higiene"
+    ]
+  },
+  "gallery": {
+    "title": "Momentos especiales",
+    "subtitle": "Fotos reales de los peludos que han pasado por nuestro hogar"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Todo lo que necesitas saber antes de confiarme a tu peludo",
+    "items": [
+      {
+        "q": "¿Cuántas mascotas cuidas al mismo tiempo?",
+        "a": "Solo una mascota a la vez. Esto garantiza atención 100% personalizada y sin estrés para tu peludo."
+      },
+      {
+        "q": "¿Qué incluye el servicio de hospedaje?",
+        "a": "Paseos diarios, alimentación según su rutina, juegos, compañía constante y reportes fotográficos todos los días para que tú estés tranquilo."
+      },
+      {
+        "q": "¿Puedes administrar medicamentos?",
+        "a": "Sí. Tengo formación como Auxiliar Veterinaria, así que puedo administrar medicamentos orales, tópicos e inyectables de forma segura."
+      },
+      {
+        "q": "¿Dónde están ubicados?",
+        "a": "En Medellín. Ofrezco servicio de transporte a costo adicional para recoger y entregar a tu mascota."
+      },
+      {
+        "q": "¿Con cuánto tiempo debo reservar?",
+        "a": "Mínimo 2-3 semanas de anticipación para garantizar disponibilidad, especialmente en temporadas altas."
+      },
+      {
+        "q": "¿Hacen visita previa?",
+        "a": "Sí, y es gratuita. Antes del primer hospedaje hacemos una visita de conocimiento para que tu mascota se familiarice conmigo y con el espacio."
+      },
+      {
+        "q": "¿Qué pasa en caso de emergencia veterinaria?",
+        "a": "Tengo clínicas veterinarias de confianza cerca. Mi formación me permite identificar señales de alerta y actuar rápido. Siempre te contacto de inmediato."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contáctame",
+    "whatsapp": "Escríbeme por WhatsApp",
+    "instagram": "@anaispcareservices",
+    "email": "anaisrodriguez2@icloud.com",
+    "location": "Medellín, Colombia"
+  },
+  "footer": {
+    "tagline": "Cuidado con amor. Siempre.",
+    "rights": "Todos los derechos reservados."
+  }
+}
