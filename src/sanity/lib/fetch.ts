@@ -27,13 +27,22 @@ async function safeFetch<T>(query: string, params: Record<string, string> = {}):
 }
 
 export const fetchServices = (locale: string) =>
-  safeFetch(SERVICES_QUERY, { locale });
+  safeFetch<{
+    id: string; name: string; description: string; detail?: string;
+    card_includes?: string[]; includes?: string[]; benefits?: string[];
+    why_higher?: string[]; footer_note?: string; price_large: string;
+    price_small?: string; note: string; conditions?: string[];
+    ideal?: string; unit: string; icon: string;
+  }>(SERVICES_QUERY, { locale });
 
 export const fetchCertifications = (locale: string) =>
-  safeFetch(CERTIFICATIONS_QUERY, { locale });
+  safeFetch<{
+    id: string; name: string; institution: string;
+    year: string; description: string; image?: string;
+  }>(CERTIFICATIONS_QUERY, { locale });
 
 export const fetchFaq = (locale: string) =>
-  safeFetch(FAQ_QUERY, { locale });
+  safeFetch<{ q: string; a: string }>(FAQ_QUERY, { locale });
 
 export const fetchGallery = () =>
   safeFetch<{ id: string; src: string; caption?: string }>(GALLERY_QUERY);
