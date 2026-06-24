@@ -44,7 +44,17 @@ function ServiceModal({ item, onClose }: { item: ServiceItem; onClose: () => voi
     };
   }, [onClose]);
 
-  const waMsg = encodeURIComponent(`Hola Anais! Me interesa el servicio: ${item.name} 🐾`);
+  const handleBook = () => {
+    sessionStorage.setItem("selected-service", item.name);
+    onClose();
+    const bookingEl = document.getElementById("booking");
+    if (bookingEl) {
+      setTimeout(() => bookingEl.scrollIntoView({ behavior: "smooth" }), 100);
+    } else {
+      // Si estamos en una página del CMS, navegar a la landing
+      window.location.href = "/#booking";
+    }
+  };
 
   return (
     <div
@@ -195,15 +205,13 @@ function ServiceModal({ item, onClose }: { item: ServiceItem; onClose: () => voi
               <p className="font-body text-sm text-brown-dark/50 italic">{item.note}</p>
             )}
           </div>
-          <a
-            href={`https://wa.me/573208504292?text=${waMsg}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-rose text-white font-body font-bold text-sm px-5 py-3 rounded-full hover:bg-rose-hover transition-colors shadow-md shrink-0"
+          <button
+            onClick={handleBook}
+            className="flex items-center gap-2 bg-rose text-white font-body font-bold text-sm px-5 py-3 rounded-full hover:bg-rose-hover transition-colors shadow-md shrink-0 cursor-pointer"
           >
             <MessageCircle size={16} />
             Agendar
-          </a>
+          </button>
         </div>
       </div>
     </div>

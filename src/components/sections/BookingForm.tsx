@@ -1,5 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -32,9 +33,17 @@ export function BookingForm() {
   const t = useTranslations("booking");
   const services: string[] = t.raw("services");
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  useEffect(() => {
+    const preselected = sessionStorage.getItem("selected-service");
+    if (preselected) {
+      setValue("service", preselected);
+      sessionStorage.removeItem("selected-service");
+    }
+  }, [setValue]);
 
   const onSubmit = (data: FormData) => {
     const msg = [
