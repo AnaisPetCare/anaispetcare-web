@@ -1,11 +1,17 @@
 import { defineField, defineType } from "sanity";
 
+// Helper: campos de texto bilingüe
+const bilingual = (name: string, titleEs: string, type: "string" | "text" = "string", rows = 3) => [
+  defineField({ name, title: `${titleEs} (ES) *`, type, ...(type === "text" ? { rows } : {}) }),
+  defineField({ name: `${name}_en`, title: `${titleEs} (EN)`, type, ...(type === "text" ? { rows } : {}), description: "Si no se llena, se muestra el texto en español." }),
+];
+
 export const heroBlock = defineType({
   name: "heroBlock", title: "Hero / Encabezado", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título principal", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subtitle", title: "Subtítulo", type: "string" }),
-    defineField({ name: "buttonLabel", title: "Texto del botón", type: "string" }),
+    ...bilingual("title", "Título principal"),
+    ...bilingual("subtitle", "Subtítulo"),
+    ...bilingual("buttonLabel", "Texto del botón"),
     defineField({ name: "buttonLink", title: "Enlace del botón", type: "string", description: 'Ej: /es/contacto o #booking' }),
     defineField({ name: "image", title: "Imagen de fondo", type: "image", options: { hotspot: true } }),
   ],
@@ -15,9 +21,9 @@ export const heroBlock = defineType({
 export const textBlock = defineType({
   name: "textBlock", title: "Bloque de texto", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título", type: "string" }),
-    defineField({ name: "subtitle", title: "Subtítulo", type: "string" }),
-    defineField({ name: "body", title: "Contenido", type: "text", rows: 5 }),
+    ...bilingual("title", "Título"),
+    ...bilingual("subtitle", "Subtítulo"),
+    ...bilingual("body", "Contenido", "text", 5),
     defineField({ name: "align", title: "Alineación", type: "string", options: { list: ["left", "center", "right"], layout: "radio" }, initialValue: "center" }),
   ],
   preview: { select: { title: "title" }, prepare: ({ title }) => ({ title: `Texto: ${title ?? "(sin título)"}` }) },
@@ -27,7 +33,7 @@ export const imageBlock = defineType({
   name: "imageBlock", title: "Imagen", type: "object",
   fields: [
     defineField({ name: "image", title: "Imagen", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
-    defineField({ name: "caption", title: "Pie de foto", type: "string" }),
+    ...bilingual("caption", "Pie de foto"),
     defineField({ name: "fullWidth", title: "Ancho completo", type: "boolean", initialValue: false }),
   ],
   preview: { select: { title: "caption", media: "image" }, prepare: ({ title, media }) => ({ title: `Imagen: ${title ?? ""}`, media }) },
@@ -36,14 +42,14 @@ export const imageBlock = defineType({
 export const cardsBlock = defineType({
   name: "cardsBlock", title: "Cuadrícula de tarjetas", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título de sección", type: "string" }),
+    ...bilingual("title", "Título de sección"),
     defineField({
       name: "cards", title: "Tarjetas", type: "array",
       of: [{ type: "object", fields: [
         defineField({ name: "icon", title: "Emoji / Ícono", type: "string" }),
-        defineField({ name: "title", title: "Título", type: "string", validation: (r) => r.required() }),
-        defineField({ name: "description", title: "Descripción", type: "text", rows: 2 }),
-        defineField({ name: "buttonLabel", title: "Botón (opcional)", type: "string" }),
+        ...bilingual("title", "Título"),
+        ...bilingual("description", "Descripción", "text", 2),
+        ...bilingual("buttonLabel", "Botón (opcional)"),
         defineField({ name: "buttonLink", title: "Enlace del botón", type: "string" }),
       ], preview: { select: { title: "title", subtitle: "icon" } } }],
     }),
@@ -54,9 +60,9 @@ export const cardsBlock = defineType({
 export const ctaBlock = defineType({
   name: "ctaBlock", title: "Llamada a la acción (CTA)", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subtitle", title: "Subtítulo", type: "string" }),
-    defineField({ name: "buttonLabel", title: "Texto del botón", type: "string" }),
+    ...bilingual("title", "Título"),
+    ...bilingual("subtitle", "Subtítulo"),
+    ...bilingual("buttonLabel", "Texto del botón"),
     defineField({ name: "buttonLink", title: "Enlace", type: "string" }),
     defineField({ name: "background", title: "Fondo", type: "string", options: { list: ["cream", "rose", "dark"], layout: "radio" }, initialValue: "cream" }),
   ],
@@ -66,12 +72,12 @@ export const ctaBlock = defineType({
 export const accordionBlock = defineType({
   name: "accordionBlock", title: "Acordeón / Preguntas frecuentes", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título de sección", type: "string" }),
+    ...bilingual("title", "Título de sección"),
     defineField({
       name: "items", title: "Preguntas", type: "array",
       of: [{ type: "object", fields: [
-        defineField({ name: "question", title: "Pregunta", type: "string", validation: (r) => r.required() }),
-        defineField({ name: "answer", title: "Respuesta", type: "text", rows: 3, validation: (r) => r.required() }),
+        ...bilingual("question", "Pregunta"),
+        ...bilingual("answer", "Respuesta", "text", 3),
       ], preview: { select: { title: "question" } } }],
     }),
   ],
@@ -81,12 +87,12 @@ export const accordionBlock = defineType({
 export const galleryBlock = defineType({
   name: "galleryBlock", title: "Galería de fotos", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título de sección", type: "string" }),
+    ...bilingual("title", "Título de sección"),
     defineField({
       name: "images", title: "Fotos", type: "array",
       of: [{ type: "object", fields: [
         defineField({ name: "image", title: "Foto", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
-        defineField({ name: "caption", title: "Pie de foto", type: "string" }),
+        ...bilingual("caption", "Pie de foto"),
       ], preview: { select: { media: "image", title: "caption" } } }],
     }),
   ],
@@ -96,11 +102,11 @@ export const galleryBlock = defineType({
 export const twoColumnsBlock = defineType({
   name: "twoColumnsBlock", title: "Dos columnas (texto + imagen)", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título", type: "string" }),
-    defineField({ name: "body", title: "Texto", type: "text", rows: 5 }),
+    ...bilingual("title", "Título"),
+    ...bilingual("body", "Texto", "text", 5),
     defineField({ name: "image", title: "Imagen", type: "image", options: { hotspot: true } }),
     defineField({ name: "imageRight", title: "Imagen a la derecha", type: "boolean", initialValue: true }),
-    defineField({ name: "buttonLabel", title: "Texto del botón (opcional)", type: "string" }),
+    ...bilingual("buttonLabel", "Texto del botón (opcional)"),
     defineField({ name: "buttonLink", title: "Enlace del botón", type: "string" }),
   ],
   preview: { select: { title: "title", media: "image" }, prepare: ({ title, media }) => ({ title: `2 columnas: ${title ?? ""}`, media }) },
@@ -109,9 +115,9 @@ export const twoColumnsBlock = defineType({
 export const videoBlock = defineType({
   name: "videoBlock", title: "Video de YouTube", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título (opcional)", type: "string" }),
-    defineField({ name: "url", title: "URL de YouTube", type: "url", description: 'Ej: https://www.youtube.com/watch?v=XXXXX o https://youtu.be/XXXXX', validation: (r) => r.required() }),
-    defineField({ name: "caption", title: "Pie de video", type: "string" }),
+    ...bilingual("title", "Título (opcional)"),
+    defineField({ name: "url", title: "URL de YouTube", type: "url", description: 'Ej: https://www.youtube.com/watch?v=XXXXX', validation: (r) => r.required() }),
+    ...bilingual("caption", "Pie de video"),
   ],
   preview: { select: { title: "title", subtitle: "url" }, prepare: ({ title, subtitle }) => ({ title: `Video: ${title ?? subtitle}` }) },
 });
@@ -119,8 +125,8 @@ export const videoBlock = defineType({
 export const mapBlock = defineType({
   name: "mapBlock", title: "Mapa / Ubicación", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título (opcional)", type: "string" }),
-    defineField({ name: "address", title: "Dirección completa", type: "string", description: 'Ej: Medellín, Antioquia, Colombia', validation: (r) => r.required() }),
+    ...bilingual("title", "Título (opcional)"),
+    defineField({ name: "address", title: "Dirección completa", type: "string", validation: (r) => r.required() }),
     defineField({ name: "embedUrl", title: "URL de embed de Google Maps", type: "url", description: 'En Google Maps → Compartir → Insertar un mapa → copia la URL del src' }),
   ],
   preview: { select: { title: "title", subtitle: "address" }, prepare: ({ title, subtitle }) => ({ title: `Mapa: ${title ?? subtitle}` }) },
@@ -130,7 +136,7 @@ export const separatorBlock = defineType({
   name: "separatorBlock", title: "Separador / Espaciado", type: "object",
   fields: [
     defineField({ name: "style", title: "Estilo", type: "string", options: { list: ["space", "line", "paws"], layout: "radio" }, initialValue: "space" }),
-    defineField({ name: "size", title: "Tamaño del espacio", type: "string", options: { list: ["small", "medium", "large"], layout: "radio" }, initialValue: "medium" }),
+    defineField({ name: "size", title: "Tamaño", type: "string", options: { list: ["small", "medium", "large"], layout: "radio" }, initialValue: "medium" }),
   ],
   preview: { select: { title: "style" }, prepare: ({ title }) => ({ title: `Separador (${title})` }) },
 });
@@ -138,10 +144,10 @@ export const separatorBlock = defineType({
 export const contactFormBlock = defineType({
   name: "contactFormBlock", title: "Formulario de contacto", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título", type: "string", initialValue: "¿Tienes alguna pregunta?" }),
-    defineField({ name: "subtitle", title: "Subtítulo", type: "string" }),
+    ...bilingual("title", "Título"),
+    ...bilingual("subtitle", "Subtítulo"),
     defineField({ name: "whatsapp", title: "Número de WhatsApp", type: "string", description: 'Solo dígitos. Ej: 573208504292', initialValue: "573208504292" }),
-    defineField({ name: "buttonLabel", title: "Texto del botón", type: "string", initialValue: "Enviar por WhatsApp" }),
+    ...bilingual("buttonLabel", "Texto del botón"),
   ],
   preview: { select: { title: "title" }, prepare: ({ title }) => ({ title: `Formulario: ${title}` }) },
 });
@@ -149,10 +155,10 @@ export const contactFormBlock = defineType({
 export const bannerBlock = defineType({
   name: "bannerBlock", title: "Banner de aviso", type: "object",
   fields: [
-    defineField({ name: "icon", title: "Emoji / Ícono", type: "string", description: 'Ej: 🐾 ⚠️ 🎉' }),
-    defineField({ name: "text", title: "Texto del banner", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "icon", title: "Emoji / Ícono", type: "string" }),
+    ...bilingual("text", "Texto del banner"),
     defineField({ name: "background", title: "Color de fondo", type: "string", options: { list: ["rose", "cream", "dark", "yellow"], layout: "radio" }, initialValue: "rose" }),
-    defineField({ name: "buttonLabel", title: "Botón (opcional)", type: "string" }),
+    ...bilingual("buttonLabel", "Botón (opcional)"),
     defineField({ name: "buttonLink", title: "Enlace del botón", type: "string" }),
   ],
   preview: { select: { title: "text" }, prepare: ({ title }) => ({ title: `Banner: ${title}` }) },
@@ -161,15 +167,15 @@ export const bannerBlock = defineType({
 export const stepsBlock = defineType({
   name: "stepsBlock", title: "Lista de pasos", type: "object",
   fields: [
-    defineField({ name: "title", title: "Título de sección", type: "string" }),
-    defineField({ name: "subtitle", title: "Subtítulo", type: "string" }),
+    ...bilingual("title", "Título de sección"),
+    ...bilingual("subtitle", "Subtítulo"),
     defineField({
       name: "steps", title: "Pasos", type: "array",
       of: [{ type: "object", fields: [
-        defineField({ name: "title", title: "Título del paso", type: "string", validation: (r) => r.required() }),
-        defineField({ name: "description", title: "Descripción", type: "text", rows: 2 }),
+        ...bilingual("title", "Título del paso"),
+        ...bilingual("description", "Descripción", "text", 2),
         defineField({ name: "icon", title: "Emoji / Ícono (opcional)", type: "string" }),
-      ], preview: { select: { title: "title", subtitle: "description" } } }],
+      ], preview: { select: { title: "title" } } }],
     }),
   ],
   preview: { select: { title: "title" }, prepare: ({ title }) => ({ title: `Pasos: ${title ?? ""}` }) },
