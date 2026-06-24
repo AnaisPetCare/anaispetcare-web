@@ -47,7 +47,8 @@ export default defineConfig({
     visionTool(),
   ],
   schema: { types: schemaTypes },
-  tools: [
+  tools: (prev) => [
+    ...prev,
     {
       name: "seed-tool",
       title: "🌱 Seed",
