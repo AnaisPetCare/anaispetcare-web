@@ -39,6 +39,17 @@ export const FAQ_QUERY = groq`
   }
 `;
 
+export const TESTIMONIALS_QUERY = groq`
+  *[_type == "testimonial" && active == true] | order(order asc) {
+    "id": _id,
+    "quote": select($locale == "en" => coalesce(quote_en, quote_es), quote_es),
+    author,
+    pet,
+    "service": select($locale == "en" => coalesce(service_en, service_es), service_es),
+    rating
+  }
+`;
+
 export const GALLERY_QUERY = groq`
   coalesce(
     *[_type == "gallery"][0].images[active != false][defined(image)] {

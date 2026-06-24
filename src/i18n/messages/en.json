@@ -336,6 +336,36 @@
       }
     ]
   },
+  "testimonials": {
+    "title": "What our clients say",
+    "subtitle": "Real stories from happy pets and worry-free owners",
+    "items": [
+      {
+        "id": "t1",
+        "quote": "I left my golden with Anais for a week and came back to a happy, well-cared-for dog. The daily photo updates gave me so much peace of mind during the trip.",
+        "author": "María Camila R.",
+        "pet": "Max · Golden Retriever",
+        "service": "Boarding",
+        "rating": 5
+      },
+      {
+        "id": "t2",
+        "quote": "My cat is very particular and nervous around strangers, but with the daily visits she adapted perfectly. I always came home to everything in order and Luna completely relaxed.",
+        "author": "Andrés M.",
+        "pet": "Luna · Persian cat",
+        "service": "Daily Visits",
+        "rating": 5
+      },
+      {
+        "id": "t3",
+        "quote": "Excellent service for our wedding. Anais kept an eye on Canela throughout the ceremony and the photos with her came out beautiful. Totally recommended.",
+        "author": "Laura & Sebastián",
+        "pet": "Canela · Beagle",
+        "service": "Event Accompaniment",
+        "rating": 5
+      }
+    ]
+  },
   "contact": {
     "title": "Contact me",
     "whatsapp": "Message me on WhatsApp",
