@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./src/sanity/schemaTypes";
+import { SeedTool } from "./src/sanity/tools/SeedTool";
 
 export default defineConfig({
   name: "anaispetcare",
@@ -46,4 +47,11 @@ export default defineConfig({
     visionTool(),
   ],
   schema: { types: schemaTypes },
+  tools: [
+    {
+      name: "seed-tool",
+      title: "🌱 Seed",
+      component: SeedTool,
+    },
+  ],
 });
