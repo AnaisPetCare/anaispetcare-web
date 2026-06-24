@@ -31,6 +31,10 @@ export default defineConfig({
             S.listItem()
               .title("💬 Testimonios")
               .child(S.documentTypeList("testimonial").title("Testimonios")),
+            S.divider(),
+            S.listItem()
+              .title("📄 Páginas")
+              .child(S.documentTypeList("page").title("Páginas")),
           ]),
     }),
     visionTool(),

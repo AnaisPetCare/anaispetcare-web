@@ -5,5 +5,10 @@ import { faqItem } from "./faqItem";
 import { settings } from "./settings";
 import { certification } from "./certification";
 import { testimonial } from "./testimonial";
+import { page } from "./page";
+import { heroBlock, textBlock, imageBlock, cardsBlock, ctaBlock } from "./blocks";
 
-export const schemaTypes = [settings, service, certification, testimonial, gallery, galleryImage, faqItem];
+export const schemaTypes = [
+  settings, service, certification, testimonial, gallery, galleryImage, faqItem,
+  page, heroBlock, textBlock, imageBlock, cardsBlock, ctaBlock,
+];
