@@ -55,11 +55,11 @@ export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: C
         {/* Logo */}
         <button onClick={() => isHome ? scrollTo("hero") : router.push(`/${locale}`)} className="flex items-center gap-2.5 cursor-pointer">
           <Image
-            src="/logo.jpeg"
+            src="/anais-logo.png"
             alt="Anais Pet Care"
             width={42}
             height={42}
-            className="rounded-full object-cover border-2 border-rose-pale"
+            className="rounded-full object-contain"
           />
           <span className="font-heading font-bold text-lg text-brown-dark hidden sm:block">
             Anais Pet Care
