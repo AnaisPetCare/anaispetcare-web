@@ -23,6 +23,9 @@ export default defineConfig({
               .title("🐾 Servicios")
               .child(S.documentTypeList("service").title("Servicios")),
             S.listItem()
+              .title("🏆 Certificaciones")
+              .child(S.documentTypeList("certification").title("Certificaciones")),
+            S.listItem()
               .title("📸 Galería de fotos")
               .child(S.documentTypeList("galleryImage").title("Fotos")),
             S.listItem()
