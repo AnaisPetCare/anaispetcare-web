@@ -16,6 +16,7 @@ import {
   fetchFaq,
   fetchGallery,
   fetchTestimonials,
+  fetchNavPages,
 } from "@/sanity/lib/fetch";
 
 export default async function Page({
@@ -26,13 +27,14 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [servicesResult, certsResult, faqResult, galleryResult, testimonialsResult] =
+  const [servicesResult, certsResult, faqResult, galleryResult, testimonialsResult, navPagesResult] =
     await Promise.allSettled([
       fetchServices(locale),
       fetchCertifications(locale),
       fetchFaq(locale),
       fetchGallery(),
       fetchTestimonials(locale),
+      fetchNavPages(),
     ]);
 
   const sanityServices =
@@ -45,10 +47,12 @@ export default async function Page({
     galleryResult.status === "fulfilled" ? galleryResult.value : null;
   const sanityTestimonials =
     testimonialsResult.status === "fulfilled" ? testimonialsResult.value : null;
+  const navPages =
+    navPagesResult.status === "fulfilled" ? navPagesResult.value : null;
 
   return (
     <>
-      <Navbar locale={locale} />
+      <Navbar locale={locale} cmsPages={navPages ?? undefined} />
       <main>
         <Hero />
         <Services serverItems={sanityServices ?? undefined} />
