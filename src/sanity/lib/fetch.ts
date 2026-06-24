@@ -14,7 +14,7 @@ const serverClient = createClient({
   useCdn: false,
 });
 
-const REVALIDATE = { next: { revalidate: 60 } };
+const REVALIDATE = { next: { revalidate: 10 } };
 
 async function safeFetch<T>(query: string, params: Record<string, string> = {}): Promise<T[] | null> {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;

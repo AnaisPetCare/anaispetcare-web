@@ -40,7 +40,7 @@ export const FAQ_QUERY = groq`
 `;
 
 export const TESTIMONIALS_QUERY = groq`
-  *[_type == "testimonial" && active == true] | order(order asc) {
+  *[_type == "testimonial" && active != false] | order(order asc) {
     "id": _id,
     "quote": select($locale == "en" => coalesce(quote_en, quote_es), quote_es),
     author,
