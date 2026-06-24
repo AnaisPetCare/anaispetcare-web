@@ -90,8 +90,8 @@ const SERVICES = [
   },
   {
     id: "pernocta",
-    name_es: "Cuidados en Tu Hogar",
-    name_en: "Care at Your Home",
+    name_es: "Pernocta en Tu Hogar",
+    name_en: "Overnight Care at Your Home",
     description_es: "Voy a tu casa para cuidar de tu peludo en la comodidad de su propio entorno. (El transporte no está incluido. Aplican ciertas condiciones.)",
     description_en: "I come to your home to care for your pet in the comfort of their own environment. (Transportation not included. Conditions apply.)",
     detail_es: "Este servicio va mucho más allá de \"quedarse a dormir\". Implica una dedicación absoluta y exclusiva para tu mascota durante toda la noche, garantizando compañía, seguridad y el cumplimiento de sus rutinas en un entorno familiar.\n\nDebido a la logística, responsabilidad y nivel de compromiso que requiere, este servicio está sujeto a condiciones específicas.",
