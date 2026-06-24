@@ -31,9 +31,15 @@ export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: C
     router.push(segments.join("/") || "/");
   };
 
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
+
   const scrollTo = (id: string) => {
     setMobileOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    if (isHome) {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(`/${locale}/#${id}`);
+    }
   };
 
   return (
@@ -47,7 +53,7 @@ export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: C
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 sm:h-18">
         {/* Logo */}
-        <button onClick={() => scrollTo("hero")} className="flex items-center gap-2.5 cursor-pointer">
+        <button onClick={() => isHome ? scrollTo("hero") : router.push(`/${locale}`)} className="flex items-center gap-2.5 cursor-pointer">
           <Image
             src="/logo.jpeg"
             alt="Anais Pet Care"
