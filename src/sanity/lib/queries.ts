@@ -53,6 +53,7 @@ export const TESTIMONIALS_QUERY = groq`
 export const SETTINGS_QUERY = groq`
   *[_type == "settings" && _id == "settings"][0] {
     "profilePhotoUrl": profilePhoto.asset->url,
+    "heroBannerUrl": heroBannerImage.asset->url,
     about_es, about_en,
     about_title_es, about_title_en,
     about_subtitle_es, about_subtitle_en,

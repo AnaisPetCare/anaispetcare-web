@@ -64,6 +64,7 @@ export const fetchRequirements = (locale: string) =>
 
 export async function fetchSettings(): Promise<{
   profilePhotoUrl?: string;
+  heroBannerUrl?: string;
   about_es?: string; about_en?: string;
   about_title_es?: string; about_title_en?: string;
   about_subtitle_es?: string; about_subtitle_en?: string;

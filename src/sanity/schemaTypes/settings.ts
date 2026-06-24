@@ -17,6 +17,7 @@ export const settings = defineType({
     defineField({ name: "email", group: "contact", title: "Correo electrónico", type: "string" }),
 
     // ─── Hero ───
+    defineField({ name: "heroBannerImage", group: "hero", title: "Imagen del banner (derecha del hero)", type: "image", options: { hotspot: true } }),
     defineField({ name: "hero_badge", group: "hero", title: "Badge (ej: Medellín · Cuidado con amor)", type: "string" }),
     defineField({ name: "hero_title_es", group: "hero", title: "Título línea 1 (ES) — ej: Tu mascota,", type: "string" }),
     defineField({ name: "hero_title_en", group: "hero", title: "Título línea 1 (EN)", type: "string" }),

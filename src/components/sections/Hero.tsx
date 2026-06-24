@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { MessageCircle, ChevronDown } from "lucide-react";
 
 interface Settings {
+  heroBannerUrl?: string;
   hero_badge?: string;
   hero_title_es?: string; hero_title_en?: string;
   hero_title_highlight_es?: string; hero_title_highlight_en?: string;
@@ -117,7 +118,7 @@ export function Hero({ settings, locale = "es" }: { settings?: Settings | null; 
               {/* Blob behind image */}
               <div className="absolute -inset-6 bg-rose-pale/60 blob" />
               <Image
-                src="/banner.png"
+                src={settings?.heroBannerUrl ?? "/banner.png"}
                 alt="Anais Pet Care"
                 width={560}
                 height={380}
