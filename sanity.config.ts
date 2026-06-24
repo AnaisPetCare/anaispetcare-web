@@ -28,6 +28,9 @@ export default defineConfig({
             S.listItem()
               .title("❓ Preguntas frecuentes")
               .child(S.documentTypeList("faqItem").title("Preguntas")),
+            S.listItem()
+              .title("💬 Testimonios")
+              .child(S.documentTypeList("testimonial").title("Testimonios")),
           ]),
     }),
     visionTool(),

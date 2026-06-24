@@ -14,8 +14,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { author, pet, service, quote, rating } = body;
 
-    if (!author || !quote || quote.length < 10) {
-      return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
+    if (!author || !quote || quote.trim().length < 5 || quote.trim().length > 300) {
+      return NextResponse.json({ error: "El comentario debe tener entre 5 y 300 caracteres." }, { status: 400 });
     }
 
     await writeClient.create({

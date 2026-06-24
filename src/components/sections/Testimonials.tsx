@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Star, ChevronLeft, ChevronRight, Quote, Send, CheckCircle } from "lucide-react";
+import { Star, Quote, Send, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface TestimonialItem {
   id: string;
@@ -12,15 +12,14 @@ interface TestimonialItem {
   rating: number;
 }
 
+const MIN_CHARS = 5;
+const MAX_CHARS = 300;
+
 function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={14}
-          className={i < count ? "text-rose fill-rose" : "text-cream-border"}
-        />
+        <Star key={i} size={14} className={i < count ? "text-rose fill-rose" : "text-cream-border"} />
       ))}
     </div>
   );
@@ -28,20 +27,22 @@ function Stars({ count }: { count: number }) {
 
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <div className="bg-white rounded-3xl p-7 border border-cream-border shadow-sm flex flex-col gap-4 h-full">
-      <div className="flex items-start justify-between">
+    <div className="bg-white rounded-3xl p-7 border border-cream-border shadow-sm flex flex-col gap-4 h-56 overflow-hidden">
+      <div className="flex items-start justify-between shrink-0">
         <Stars count={item.rating} />
         <Quote size={20} className="text-rose/20 shrink-0" />
       </div>
-      <p className="font-body text-brown-dark/70 text-sm leading-relaxed flex-1 italic">
+      <p className="font-body text-brown-dark/70 text-sm leading-relaxed flex-1 italic overflow-hidden line-clamp-3 break-words min-w-0">
         "{item.quote}"
       </p>
-      <div className="border-t border-cream-border pt-4">
-        <p className="font-body font-semibold text-brown-dark text-sm">{item.author}</p>
-        <p className="font-body text-xs text-brown-dark/40 mt-0.5">{item.pet}</p>
-        <span className="inline-block mt-2 text-[10px] font-body font-semibold text-rose bg-rose-pale px-2.5 py-1 rounded-full uppercase tracking-wide">
-          {item.service}
-        </span>
+      <div className="border-t border-cream-border pt-4 shrink-0">
+        <p className="font-body font-semibold text-brown-dark text-sm truncate">{item.author}</p>
+        <p className="font-body text-xs text-brown-dark/40 mt-0.5 truncate">{item.pet}</p>
+        {item.service && (
+          <span className="inline-block mt-2 text-[10px] font-body font-semibold text-rose bg-rose-pale px-2.5 py-1 rounded-full uppercase tracking-wide max-w-full truncate">
+            {item.service}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -69,10 +70,7 @@ function StarPicker({ value, onChange }: { value: number; onChange: (n: number) 
           onMouseLeave={() => setHover(0)}
           className="cursor-pointer"
         >
-          <Star
-            size={22}
-            className={n <= (hover || value) ? "text-rose fill-rose" : "text-cream-border"}
-          />
+          <Star size={22} className={n <= (hover || value) ? "text-rose fill-rose" : "text-cream-border"} />
         </button>
       ))}
     </div>
@@ -84,6 +82,7 @@ function ReviewForm() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [charCount, setCharCount] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,10 +102,12 @@ function ReviewForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error ?? "");
       setSent(true);
-    } catch {
-      setError("Hubo un problema al enviar. Intenta de nuevo.");
+    } catch (err) {
+      const msg = err instanceof Error && err.message ? err.message : "Hubo un problema al enviar. Intenta de nuevo.";
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -156,7 +157,23 @@ function ReviewForm() {
 
       <div>
         <label className={labelClass}>Tu comentario *</label>
-        <textarea name="quote" required rows={4} placeholder="Cuéntanos cómo fue la experiencia de tu peludo..." className={`${inputClass} resize-none`} />
+        <textarea
+          name="quote"
+          required
+          rows={4}
+          maxLength={MAX_CHARS}
+          placeholder="Cuéntanos cómo fue la experiencia de tu peludo..."
+          className={`${inputClass} resize-none`}
+          onChange={(e) => setCharCount(e.target.value.length)}
+        />
+        <div className="flex items-center justify-between mt-1.5 px-1">
+          <span className={`font-body text-xs ${charCount < MIN_CHARS ? "text-brown-dark/40" : "text-rose"}`}>
+            {charCount < MIN_CHARS ? `Mínimo ${MIN_CHARS} caracteres` : ""}
+          </span>
+          <span className={`font-body text-xs ${charCount >= MAX_CHARS ? "text-red-400" : charCount < MIN_CHARS ? "text-brown-dark/40" : "text-rose"}`}>
+            {charCount}/{MAX_CHARS}
+          </span>
+        </div>
       </div>
 
       {error && <p className="font-body text-sm text-red-500">{error}</p>}
@@ -178,10 +195,34 @@ export function Testimonials({ serverItems }: { serverItems?: TestimonialItem[] 
   const fallback: TestimonialItem[] = t.raw("items");
   const items = serverItems && serverItems.length > 0 ? serverItems : fallback;
 
-  const [current, setCurrent] = useState(0);
-  const visible = 3;
-  const canPrev = current > 0;
-  const canNext = current + visible < items.length;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 8);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    el?.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el?.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [items]);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardW = el.querySelector("[data-card]")?.clientWidth ?? 320;
+    el.scrollBy({ left: dir === "right" ? cardW + 20 : -(cardW + 20), behavior: "smooth" });
+  };
 
   return (
     <section id="testimonials" className="py-24 px-4 sm:px-6 bg-cream-dark">
@@ -199,37 +240,52 @@ export function Testimonials({ serverItems }: { serverItems?: TestimonialItem[] 
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {items.slice(current, current + visible).map((item) => (
-            <TestimonialCard key={item.id} item={item} />
-          ))}
+        {/* Carousel */}
+        <div className="relative">
+          {/* Fades laterales */}
+          <div className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-cream-dark to-transparent z-10 pointer-events-none transition-opacity duration-200 ${canScrollLeft ? "opacity-100" : "opacity-0"}`} />
+          <div className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-cream-dark to-transparent z-10 pointer-events-none transition-opacity duration-200 ${canScrollRight ? "opacity-100" : "opacity-0"}`} />
+
+          {/* Scroll container */}
+          <div
+            ref={scrollRef}
+            className="flex gap-5 overflow-x-auto pb-4 scroll-smooth hide-scrollbar"
+            style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none" }}
+          >
+            {items.map((item) => (
+              <div
+                key={item.id}
+                data-card
+                className="flex-none w-[85vw] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <TestimonialCard item={item} />
+              </div>
+            ))}
+          </div>
+
+          {/* Botones de navegación */}
+          {items.length > 3 && (
+            <div className="flex items-center justify-center gap-3 mt-8">
+              <button
+                onClick={() => scroll("left")}
+                disabled={!canScrollLeft}
+                className="w-10 h-10 rounded-full border border-cream-border bg-white flex items-center justify-center hover:border-rose/40 hover:bg-rose-pale transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <ChevronLeft size={18} className="text-brown-dark" />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                disabled={!canScrollRight}
+                className="w-10 h-10 rounded-full border border-cream-border bg-white flex items-center justify-center hover:border-rose/40 hover:bg-rose-pale transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <ChevronRight size={18} className="text-brown-dark" />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Navegación — solo si hay más de 3 */}
-        {items.length > visible && (
-          <div className="flex items-center justify-center gap-4 mt-10">
-            <button
-              onClick={() => setCurrent((c) => Math.max(0, c - 1))}
-              disabled={!canPrev}
-              className="w-10 h-10 rounded-full border border-cream-border bg-white flex items-center justify-center hover:border-rose/40 hover:bg-rose-pale transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              <ChevronLeft size={18} className="text-brown-dark" />
-            </button>
-            <span className="font-body text-xs text-brown-dark/40">
-              {Math.floor(current / visible) + 1} / {Math.ceil(items.length / visible)}
-            </span>
-            <button
-              onClick={() => setCurrent((c) => Math.min(items.length - visible, c + 1))}
-              disabled={!canNext}
-              className="w-10 h-10 rounded-full border border-cream-border bg-white flex items-center justify-center hover:border-rose/40 hover:bg-rose-pale transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              <ChevronRight size={18} className="text-brown-dark" />
-            </button>
-          </div>
-        )}
-
-        {/* Formulario de reseña */}
+        {/* Formulario */}
         <div className="mt-16 max-w-2xl mx-auto">
           <div className="text-center mb-8">
             <h3 className="font-heading font-bold text-2xl text-brown-dark mb-2">
