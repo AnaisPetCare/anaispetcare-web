@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { Syringe, Bug, Utensils, Heart, Calendar, ClipboardList, Pill, AlertTriangle } from "lucide-react";
+import { Syringe, Bug, Utensils, Heart, Calendar, ClipboardList, Pill, AlertTriangle, Phone } from "lucide-react";
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   syringe: Syringe,
@@ -10,6 +10,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
   clipboard: ClipboardList,
   pill: Pill,
   alert: AlertTriangle,
+  phone: Phone,
 };
 
 interface ReqItem {

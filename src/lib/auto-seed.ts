@@ -359,6 +359,7 @@ const REQUIREMENTS_DATA = [
   { id: "miedos", icon: "alert", title_es: "¿Le tiene miedo a algo?", title_en: "Is it afraid of anything?", description_es: "Cuéntanos sus miedos, traumas o estímulos que lo alteran. Así podemos cuidarlo mejor.", description_en: "Tell us about their fears, traumas, or triggers. That way we can take better care of them.", order: 4 },
   { id: "reserva", icon: "calendar", title_es: "Reserva anticipada", title_en: "Advance reservation", description_es: "1 semana para cuidado en mi casa · 2-3 semanas para pernocta en tu hogar · Último momento posible con costo adicional.", description_en: "1 week for care at my home · 2-3 weeks for overnight at your home · Last-minute possible with extra charge.", order: 5 },
   { id: "visita", icon: "clipboard", title_es: "Visita previa", title_en: "Meet-and-greet visit", description_es: "Hacemos una visita de conocimiento sin costo para que tu peludo se familiarice conmigo.", description_en: "We do a free meet-and-greet so your pet can get familiar with me.", order: 6 },
+  { id: "emergencia", icon: "phone", title_es: "Contacto de emergencia", title_en: "Emergency contact", description_es: "Necesitamos un número de contacto al que podamos llamar en caso de cualquier situación con tu mascota.", description_en: "We need a contact number we can reach in case of any situation with your pet.", order: 7 },
 ];
 
 async function seedRequirements(client: ReturnType<typeof createClient>) {
