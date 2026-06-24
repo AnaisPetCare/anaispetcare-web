@@ -13,7 +13,7 @@ export const testimonial = defineType({
     defineField({ name: "service_en", title: "Servicio (EN)", type: "string" }),
     defineField({ name: "rating", title: "Calificación (1-5)", type: "number", validation: (r) => r.min(1).max(5), initialValue: 5 }),
     defineField({ name: "order", title: "Orden", type: "number" }),
-    defineField({ name: "active", title: "Visible en el sitio", type: "boolean", initialValue: true }),
+    defineField({ name: "active", title: "✅ Aprobado — visible en el sitio", type: "boolean", initialValue: false, description: "Activa este toggle para publicar el comentario en la landing." }),
   ],
   orderings: [{ title: "Orden", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],
   preview: {

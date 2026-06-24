@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Quote, Send, CheckCircle } from "lucide-react";
 
 interface TestimonialItem {
   id: string;
@@ -44,6 +44,132 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
         </span>
       </div>
     </div>
+  );
+}
+
+const SERVICES_ES = [
+  "Hospedaje en Mi Hogar",
+  "Cuidado en Tu Hogar",
+  "Visitas Diarias",
+  "Cuidado por Horas",
+  "Acompañamiento en Eventos",
+  "Baños e Higiene",
+];
+
+function StarPicker({ value, onChange }: { value: number; onChange: (n: number) => void }) {
+  const [hover, setHover] = useState(0);
+  return (
+    <div className="flex gap-1">
+      {[1, 2, 3, 4, 5].map((n) => (
+        <button
+          key={n}
+          type="button"
+          onClick={() => onChange(n)}
+          onMouseEnter={() => setHover(n)}
+          onMouseLeave={() => setHover(0)}
+          className="cursor-pointer"
+        >
+          <Star
+            size={22}
+            className={n <= (hover || value) ? "text-rose fill-rose" : "text-cream-border"}
+          />
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function ReviewForm() {
+  const [rating, setRating] = useState(5);
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    const fd = new FormData(e.currentTarget);
+    const body = {
+      author: fd.get("author"),
+      pet: fd.get("pet"),
+      service: fd.get("service"),
+      quote: fd.get("quote"),
+      rating,
+    };
+    try {
+      const res = await fetch("/api/submit-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error();
+      setSent(true);
+    } catch {
+      setError("Hubo un problema al enviar. Intenta de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputClass = "w-full bg-cream rounded-xl border border-cream-border px-4 py-3 font-body text-sm text-brown-dark placeholder:text-brown-dark/40 focus:outline-none focus:ring-2 focus:ring-rose/30 focus:border-rose transition-all";
+  const labelClass = "block font-body text-sm font-semibold text-brown-dark mb-1.5";
+
+  if (sent) {
+    return (
+      <div className="bg-white rounded-3xl border border-cream-border p-8 text-center">
+        <CheckCircle size={40} className="text-rose mx-auto mb-3" />
+        <h4 className="font-heading font-bold text-lg text-brown-dark mb-2">¡Gracias por tu comentario!</h4>
+        <p className="font-body text-sm text-brown-dark/60">Lo revisaremos pronto y lo publicaremos en el sitio 🐾</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-cream-border p-8 space-y-4">
+      <h4 className="font-heading font-bold text-xl text-brown-dark">Deja tu reseña</h4>
+      <p className="font-body text-sm text-brown-dark/50">Tu comentario será revisado antes de publicarse.</p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className={labelClass}>Tu nombre *</label>
+          <input name="author" required placeholder="Ej: María Camila" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Nombre de tu mascota</label>
+          <input name="pet" placeholder="Ej: Max · Golden Retriever" className={inputClass} />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Servicio que usaste</label>
+        <select name="service" className={inputClass}>
+          <option value="">Selecciona un servicio</option>
+          {SERVICES_ES.map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+      </div>
+
+      <div>
+        <label className={labelClass}>Tu calificación *</label>
+        <StarPicker value={rating} onChange={setRating} />
+      </div>
+
+      <div>
+        <label className={labelClass}>Tu comentario *</label>
+        <textarea name="quote" required rows={4} placeholder="Cuéntanos cómo fue la experiencia de tu peludo..." className={`${inputClass} resize-none`} />
+      </div>
+
+      {error && <p className="font-body text-sm text-red-500">{error}</p>}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="flex items-center gap-2 bg-rose text-white font-body font-semibold px-6 py-3 rounded-full hover:bg-rose-hover transition-colors shadow-md disabled:opacity-60 cursor-pointer"
+      >
+        <Send size={15} />
+        {loading ? "Enviando..." : "Enviar reseña"}
+      </button>
+    </form>
   );
 }
 
@@ -103,19 +229,17 @@ export function Testimonials({ serverItems }: { serverItems?: TestimonialItem[] 
           </div>
         )}
 
-        {/* CTA */}
-        <div className="mt-12 text-center">
-          <p className="font-body text-brown-dark/50 text-sm mb-4">
-            ¿Ya usaste nuestros servicios? Cuéntanos tu experiencia
-          </p>
-          <a
-            href="https://wa.me/573208504292?text=Hola%20Anais!%20Quiero%20dejar%20un%20comentario%20sobre%20el%20servicio%20🐾"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-rose text-white font-body font-semibold px-6 py-3 rounded-full hover:bg-rose-hover transition-colors shadow-md hover:shadow-lg text-sm"
-          >
-            💬 Dejar un comentario
-          </a>
+        {/* Formulario de reseña */}
+        <div className="mt-16 max-w-2xl mx-auto">
+          <div className="text-center mb-8">
+            <h3 className="font-heading font-bold text-2xl text-brown-dark mb-2">
+              ¿Ya usaste nuestros servicios?
+            </h3>
+            <p className="font-body text-brown-dark/50 text-sm">
+              Cuéntanos tu experiencia. Lo revisaremos y lo publicaremos aquí 🐾
+            </p>
+          </div>
+          <ReviewForm />
         </div>
       </div>
     </section>
