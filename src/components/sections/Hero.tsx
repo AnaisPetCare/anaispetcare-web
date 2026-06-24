@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { MessageCircle, ChevronDown } from "lucide-react";
-
 interface Settings {
   heroBannerUrl?: string;
   hero_badge?: string;
@@ -17,16 +16,11 @@ function loc(es: string | undefined, en: string | undefined, locale: string) {
 
 export function Hero({ settings, locale = "es" }: { settings?: Settings | null; locale?: string }) {
   const t = useTranslations("hero");
-  const trust = useTranslations("trust");
-
   const badge = settings?.hero_badge || t("badge");
   const title = loc(settings?.hero_title_es, settings?.hero_title_en, locale) || t("title");
   const titleHighlight = loc(settings?.hero_title_highlight_es, settings?.hero_title_highlight_en, locale) || t("title_highlight");
   const subtitle = loc(settings?.hero_subtitle_es, settings?.hero_subtitle_en, locale) || t("subtitle");
   const description = loc(settings?.hero_description_es, settings?.hero_description_en, locale) || t("description");
-
-  const TRUST_ITEMS = ["item1", "item2", "item3", "item4"] as const;
-  const TRUST_ICONS = ["🎓", "✂️", "🐾", "📸"];
 
   return (
     <section
@@ -96,20 +90,6 @@ export function Hero({ settings, locale = "es" }: { settings?: Settings | null; 
               </a>
             </div>
 
-            {/* Trust badges */}
-            <div className="grid grid-cols-2 gap-3">
-              {TRUST_ITEMS.map((key, i) => (
-                <div
-                  key={key}
-                  className="flex items-center gap-2.5 bg-white/70 backdrop-blur-sm rounded-2xl px-4 py-3 border border-cream-border shadow-sm"
-                >
-                  <span className="text-xl">{TRUST_ICONS[i]}</span>
-                  <span className="font-body text-sm font-semibold text-brown-dark">
-                    {trust(key)}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Right: banner image */}
