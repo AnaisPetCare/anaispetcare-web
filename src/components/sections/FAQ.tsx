@@ -8,8 +8,7 @@ interface FaqItem {
 
 export function FAQ({ serverItems }: { serverItems?: FaqItem[] }) {
   const t = useTranslations("faq");
-  const fallback: FaqItem[] = t.raw("items");
-  const items = serverItems && serverItems.length > 0 ? serverItems : fallback;
+  const items = serverItems ?? [];
 
   return (
     <section id="faq" className="py-24 px-4 sm:px-6 bg-cream-dark">

@@ -219,8 +219,7 @@ function ServiceModal({ item, onClose, locale }: { item: ServiceItem; onClose: (
 
 export function Services({ serverItems, locale = "es" }: { serverItems?: ServiceItem[]; locale?: string }) {
   const t = useTranslations("services");
-  const fallback: ServiceItem[] = t.raw("items");
-  const items = serverItems && serverItems.length > 0 ? serverItems : fallback;
+  const items = serverItems ?? [];
   const [selected, setSelected] = useState<ServiceItem | null>(null);
 
   return (

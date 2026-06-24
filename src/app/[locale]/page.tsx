@@ -52,17 +52,17 @@ export default async function Page({
 
   return (
     <>
-      <Navbar locale={locale} cmsPages={navPages ?? undefined} />
+      <Navbar locale={locale} cmsPages={navPages ?? []} />
       <main>
         <Hero />
-        <Services serverItems={sanityServices ?? undefined} locale={locale} />
+        <Services serverItems={sanityServices ?? []} locale={locale} />
         <About />
-        <Certifications serverItems={sanityCerts ?? undefined} />
+        <Certifications serverItems={sanityCerts ?? []} />
         <Requirements />
-        <BookingForm serviceNames={sanityServices?.map((s) => s.name) ?? undefined} />
+        <BookingForm serviceNames={sanityServices?.map((s) => s.name) ?? []} />
         <Gallery serverImages={sanityGallery ?? undefined} />
-        <Testimonials serverItems={sanityTestimonials ?? undefined} />
-        <FAQ serverItems={sanityFaq ?? undefined} />
+        <Testimonials serverItems={sanityTestimonials ?? []} />
+        <FAQ serverItems={sanityFaq ?? []} />
       </main>
       <Footer />
     </>

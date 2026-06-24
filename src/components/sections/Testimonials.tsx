@@ -192,8 +192,7 @@ function ReviewForm() {
 
 export function Testimonials({ serverItems }: { serverItems?: TestimonialItem[] }) {
   const t = useTranslations("testimonials");
-  const fallback: TestimonialItem[] = t.raw("items");
-  const items = serverItems && serverItems.length > 0 ? serverItems : fallback;
+  const items = serverItems ?? [];
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

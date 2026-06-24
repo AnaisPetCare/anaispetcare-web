@@ -92,8 +92,7 @@ function CertModal({ item, onClose }: { item: CertItem; onClose: () => void }) {
 
 export function Certifications({ serverItems }: { serverItems?: CertItem[] }) {
   const t = useTranslations("certifications");
-  const fallback: CertItem[] = t.raw("items");
-  const items = serverItems && serverItems.length > 0 ? serverItems : fallback;
+  const items = serverItems ?? [];
   const [selected, setSelected] = useState<CertItem | null>(null);
 
   return (

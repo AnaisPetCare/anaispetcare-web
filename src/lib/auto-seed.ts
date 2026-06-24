@@ -1,0 +1,339 @@
+import { createClient } from "@sanity/client";
+
+const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "6q4qoj9r";
+const DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
+
+function getClient() {
+  const token = process.env.SANITY_API_WRITE_TOKEN;
+  if (!token) return null;
+  return createClient({ projectId: PROJECT_ID, dataset: DATASET, apiVersion: "2024-01-01", token, useCdn: false });
+}
+
+async function isEmpty(client: ReturnType<typeof createClient>, type: string): Promise<boolean> {
+  const count = await client.fetch<number>(`count(*[_type == $type])`, { type });
+  return count === 0;
+}
+
+// ─── Seed data ────────────────────────────────────────────────────────────────
+
+const SERVICES = [
+  {
+    id: "hospedaje",
+    name_es: "Hospedaje para Mascotas en Mi Hogar",
+    name_en: "Home Boarding",
+    description_es: "Tu mascota será nuestro único huésped, recibiendo atención personalizada, comodidad y un ambiente tranquilo y libre de estrés. Ofrecemos descuentos y otros beneficios.",
+    description_en: "Your pet will be our only guest, receiving personalized attention, comfort, and a calm stress-free environment. Discounts and other benefits available.",
+    detail_es: "Tu mascota será parte de mi familia durante su estadía. Este servicio no incluye transporte porque tú me traes y recoges a tu peludo.",
+    detail_en: "Your pet becomes part of my family during their stay. Transportation is not included — you drop off and pick up your furry friend.",
+    card_includes_es: ["Pet Sitting en tu casa", "Estadías cortas y largas", "Administración de medicamentos", "Atención exclusiva (una mascota a la vez)", "Paseos, juegos y seguimiento diario"],
+    card_includes_en: ["Pet sitting at my home", "Short and long stays", "Medication administration", "Exclusive attention (one pet at a time)", "Walks, play, and daily updates"],
+    includes_es: ["Alojamiento cómodo, limpio y seguro", "Rutina de paseos, alimentación y juegos", "Fotos y actualizaciones diarias para que te sientas cerca", "Supervisión constante (solo cuido una mascota a la vez)", "Aplicación de medicamentos si necesitas"],
+    includes_en: ["Comfortable, clean, and safe accommodation", "Daily walks, feeding, and playtime", "Daily photos and updates so you feel close", "Constant supervision (one pet at a time only)", "Medication administration if needed"],
+    ideal_es: "Dueños que buscan un ambiente hogareño y tranquilo, sin jaulas ni sobrecupo.",
+    ideal_en: "Owners looking for a cozy, calm home environment — no cages, no overcrowding.",
+    price_large: "60.000", price_small: "40.000",
+    price_note_es: "Perros grandes/activos (husky, pitbull, rottweiler) desde $60k · Perros pequeños y tranquilos desde $40k",
+    price_note_en: "Large/active breeds (husky, pitbull, rottweiler) from $60k · Small calm breeds from $40k",
+    conditions_es: ["Si es más de una mascota, el precio varía", "Si necesitas que recoja a tu mascota, transporte es por aparte", "Mascotas de raza con mucha energía, el precio puede variar"],
+    conditions_en: ["Price varies if more than one pet", "Transportation is charged separately if you need pickup", "High-energy breed pricing may vary"],
+    unit_es: "noche", unit_en: "night",
+    why_higher_es: [], why_higher_en: [], benefits_es: [], benefits_en: [],
+    footer_note_es: "", footer_note_en: "",
+    icon: "home", order: 1,
+  },
+  {
+    id: "pernocta",
+    name_es: "Cuidado de Mascotas en Tu Hogar",
+    name_en: "In-Home Overnight Care",
+    description_es: "Voy a tu casa para cuidar de tu peludo en la comodidad de su propio entorno. (El transporte no está incluido. Aplican ciertas condiciones.)",
+    description_en: "I come to your home to care for your pet in the comfort of their own environment. (Transportation not included. Conditions apply.)",
+    detail_es: "Este servicio va mucho más allá de \"quedarse a dormir\". Implica una dedicación absoluta y exclusiva para tu mascota durante toda la noche, garantizando compañía, seguridad y el cumplimiento de sus rutinas en un entorno familiar.\n\nDebido a la logística, responsabilidad y nivel de compromiso que requiere, este servicio está sujeto a condiciones específicas.",
+    detail_en: "This service goes far beyond just \"sleeping over\". It means absolute and exclusive dedication to your pet throughout the night, ensuring companionship, safety, and their routines in a familiar setting.\n\nDue to the logistics, responsibility, and level of commitment required, this service is subject to specific conditions.",
+    card_includes_es: ["Pernocta en casa del cliente", "Acompañamiento nocturno", "Rutinas completas", "Supervisión prolongada", "Estadías de varios días"],
+    card_includes_en: ["Overnight stay at your home", "Nighttime companionship", "Full daily routines", "Extended supervision", "Multi-day stays"],
+    includes_es: ["Disponibilidad total desde el atardecer hasta la mañana siguiente", "Paseos, alimentación, juegos y acompañamiento nocturno", "Supervisión continua y exclusiva para tus mascotas", "Cuido tu hogar con la misma seriedad que a tu mascota", "Servicio completamente dedicado a tus mascotas"],
+    includes_en: ["Full availability from dusk to the following morning", "Walks, feeding, play, and overnight companionship", "Continuous and exclusive supervision for your pets", "I care for your home with the same seriousness as your pet", "Service completely dedicated to your pets"],
+    why_higher_es: ["Disponibilidad total y prolongada: permanezco en tu hogar desde el atardecer hasta la mañana siguiente", "Atención continua: incluye paseos, alimentación, juegos, acompañamiento y supervisión nocturna", "Exposición y adaptación personal: al estar en un entorno distinto a mi hogar, implica un nivel adicional de responsabilidad, confianza y adaptación", "Respeto por tu espacio: cuido tu hogar con la misma seriedad y compromiso con el que cuido a tu mascota", "Servicio exclusivo: durante la pernocta, mi tiempo está completamente destinado a tus mascotas"],
+    why_higher_en: ["Full and extended availability: I stay in your home from dusk to the following morning", "Continuous attention: includes walks, feeding, play, companionship, and nighttime supervision", "Personal exposure and adaptation: being in an environment other than my own implies an additional level of responsibility, trust, and adaptation", "Respect for your space: I care for your home with the same seriousness and commitment with which I care for your pet", "Exclusive service: during the overnight stay, my time is entirely dedicated to your pets"],
+    ideal_es: "", ideal_en: "", benefits_es: [], benefits_en: [],
+    price_large: "100.000", price_small: "",
+    price_note_es: "El valor puede variar según cantidad de mascotas, nivel de energía o requerimientos especiales. Transporte no incluido.",
+    price_note_en: "Price may vary depending on the number of pets, energy level, or special requirements. Transportation not included.",
+    conditions_es: ["Solo hogares con más de 2 mascotas", "Estadías mínimas de 30 días continuos", "Reserva anticipada de mínimo 2 a 3 semanas", "Sujeto a evaluación previa del caso y disponibilidad", "Mascotas con rutinas definidas y comportamiento estable"],
+    conditions_en: ["Only homes with more than 2 pets", "Minimum stays of 30 continuous days", "Advance reservation of at least 2 to 3 weeks", "Subject to prior case evaluation and availability", "Pets with defined routines and stable behavior"],
+    footer_note_es: "Este servicio refleja no solo el cuidado de tu mascota, sino también el compromiso, la confianza y la disposición de adaptarme a tu espacio para asegurar que tu compañero nunca esté solo.",
+    footer_note_en: "This service reflects not only the care of your pet, but also the commitment, trust, and willingness to adapt to your space to ensure your companion is never alone.",
+    unit_es: "noche", unit_en: "night",
+    icon: "moon", order: 2,
+  },
+  {
+    id: "horas",
+    name_es: "Visitas y Cuidados por Horas",
+    name_en: "Hourly Visits & Care",
+    description_es: "¿Necesitas que alguien visite a tu mascota durante el día? Ofrezco visitas por horas para alimentación, compañía, paseos, tiempo de juego y cuidados generales.",
+    description_en: "Need someone to visit your pet during the day? I offer hourly visits for feeding, companionship, walks, playtime, and general care.",
+    detail_es: "Perfecto para personas que necesitan apoyo puntual sin cuidado de tiempo completo. Este servicio es muy útil para gatos, perritos independientes o cuando estás fuera por pocas horas.\n\nSe aplica un cargo de transporte según la ubicación.",
+    detail_en: "Perfect for people who need occasional support without full-time care. This service is very useful for cats, independent dogs, or when you're away for a few hours.\n\nA transportation charge applies depending on location.",
+    card_includes_es: ["Visitas diarias", "Paseos", "Alimentación", "Limpieza de areneros", "Atención para gatos", "Cuidado puntual durante el día"],
+    card_includes_en: ["Daily visits", "Walks", "Feeding", "Litter cleaning", "Cat care", "Punctual daytime care"],
+    includes_es: ["Visitas a tu domicilio (dos o tres veces al día)", "Paseos de 30–45 min con agua, juegos y ejercicio", "Revisión de comederos, agua limpia y arena (en caso de gatos)", "Atención amorosa, sin prisas"],
+    includes_en: ["Visits to your home (two or three times a day)", "30–45 min walks with water, play, and exercise", "Checking food bowls, fresh water, and litter (for cats)", "Loving attention, no rush"],
+    ideal_es: "", ideal_en: "", why_higher_es: [], why_higher_en: [], benefits_es: [], benefits_en: [],
+    price_large: "80.000", price_small: "",
+    price_note_es: "Se aplica cargo de transporte según ubicación.",
+    price_note_en: "Transportation charge applies depending on location.",
+    conditions_es: ["Ciertas condiciones aplican", "Mascotas de raza con mucha energía, el precio puede variar"],
+    conditions_en: ["Certain conditions apply", "High-energy breed pricing may vary"],
+    footer_note_es: "", footer_note_en: "",
+    unit_es: "día", unit_en: "day",
+    icon: "clock", order: 3,
+  },
+  {
+    id: "eventos",
+    name_es: "Acompañamiento de Mascotas en Eventos",
+    name_en: "Pet Event Accompaniment",
+    description_es: "¿Quieres que tu mascota forme parte de tu boda, cumpleaños, reunión familiar o celebración especial? Yo me encargo de cuidarla durante el evento para que puedas disfrutar cada momento sin preocuparte.",
+    description_en: "Want your pet to be part of your wedding, birthday, family gathering, or special celebration? I take care of them during the event so you can enjoy every moment worry-free.",
+    detail_es: "Tu mascota también forma parte de la familia y merece estar presente en los momentos más importantes. Con este servicio, podrás incluir a tu peludo en bodas, pedidas de mano, sesiones de fotos, cumpleaños y eventos especiales.",
+    detail_en: "Your pet is also part of the family and deserves to be present at the most important moments. With this service, you can include your furry friend in weddings, proposals, photo sessions, birthdays, and special events.",
+    card_includes_es: ["Bodas", "Cumpleaños", "Sesiones de fotos", "Pedidas de mano", "Eventos corporativos pet-friendly"],
+    card_includes_en: ["Weddings", "Birthdays", "Photo sessions", "Proposals", "Pet-friendly corporate events"],
+    includes_es: ["Supervisión constante durante el evento", "Paseos y pausas para hacer sus necesidades", "Agua, snacks y atención personalizada", "Apoyo durante fotografías y momentos especiales", "Monitoreo de señales de estrés o incomodidad", "Actualizaciones y fotos para tu tranquilidad", "Aplicación de medicamentos si es necesario"],
+    includes_en: ["Constant supervision during the event", "Walks and bathroom breaks", "Water, snacks, and personalized attention", "Support during photos and special moments", "Monitoring stress or discomfort signals", "Updates and photos for your peace of mind", "Medication administration if necessary"],
+    ideal_es: "Bodas · Pedidas de mano · Sesiones fotográficas · Cumpleaños · Reuniones familiares · Eventos sociales y corporativos pet-friendly",
+    ideal_en: "Weddings · Proposals · Photo sessions · Birthdays · Family gatherings · Pet-friendly social and corporate events",
+    benefits_es: ["Disfrutas tu evento sin preocupaciones", "Evitas delegar el cuidado de tu mascota a familiares o invitados", "Tu mascota participa de forma segura y cómoda", "Atención personalizada enfocada en su bienestar emocional"],
+    benefits_en: ["Enjoy your event without worries", "Avoid delegating your pet's care to family or guests", "Your pet participates safely and comfortably", "Personalized attention focused on their emotional well-being"],
+    why_higher_es: [], why_higher_en: [],
+    price_large: "80.000", price_small: "",
+    price_note_es: "Primeras 2h · $30.000/hora adicional · +6h o múltiples mascotas: cotización personalizada",
+    price_note_en: "First 2h · $30,000/additional hour · +6h or multiple pets: personalized quote",
+    conditions_es: ["El servicio se presta únicamente durante el evento", "La mascota debe contar con vacunación al día y buen estado de salud", "Se recomienda reunión previa para conocer rutina, personalidad y necesidades de la mascota", "Sujeto a disponibilidad de fecha y ubicación", "Mascotas de raza con mucha energía, el precio puede variar"],
+    conditions_en: ["The service is provided only during the event", "The pet must be up to date on vaccinations and in good health", "A prior meeting is recommended to get to know the pet's routine, personality, and needs", "Subject to date and location availability", "High-energy breed pricing may vary"],
+    footer_note_es: "Porque los momentos especiales se disfrutan mejor cuando sabes que tu mascota está segura, tranquila y acompañada.",
+    footer_note_en: "Because special moments are better enjoyed when you know your pet is safe, calm, and cared for.",
+    unit_es: "evento", unit_en: "event",
+    icon: "camera", order: 4,
+  },
+  {
+    id: "banos",
+    name_es: "Baños e Higiene para Mascotas",
+    name_en: "Pet Bathing & Grooming",
+    description_es: "Ayudamos a que tu mascota se mantenga limpia, fresca y cómoda con nuestros servicios de baño e higiene.",
+    description_en: "We help keep your pet clean, fresh, and comfortable with our bathing and hygiene services.",
+    detail_es: "Servicio de higiene completo para que tu peludo esté siempre presentable y saludable.",
+    detail_en: "Complete hygiene service to keep your furry friend always presentable and healthy.",
+    card_includes_es: ["Baños", "Cepillado", "Limpieza básica", "Cuidado de higiene"],
+    card_includes_en: ["Baths", "Brushing", "Basic cleaning", "Hygiene care"],
+    includes_es: ["Baño completo con productos adecuados para su pelaje", "Secado y cepillado", "Limpieza de oídos", "Corte de uñas"],
+    includes_en: ["Full bath with products suited for their coat", "Drying and brushing", "Ear cleaning", "Nail trimming"],
+    ideal_es: "", ideal_en: "", why_higher_es: [], why_higher_en: [], benefits_es: [], benefits_en: [],
+    price_large: "", price_small: "",
+    price_note_es: "Consultar tarifa según raza y tamaño",
+    price_note_en: "Consult pricing by breed and size",
+    conditions_es: ["Precio varía según raza, tamaño y estado del pelaje"],
+    conditions_en: ["Price varies by breed, size, and coat condition"],
+    footer_note_es: "", footer_note_en: "",
+    unit_es: "", unit_en: "",
+    icon: "droplets", order: 5,
+  },
+];
+
+const CERTIFICATIONS = [
+  {
+    id: "auxiliar-veterinaria",
+    name_es: "Auxiliar Veterinaria", name_en: "Veterinary Assistant",
+    institution: "Institución certificadora", year: "",
+    description_es: "Formación en cuidados básicos, administración de medicamentos, primeros auxilios y manejo clínico de animales.",
+    description_en: "Training in basic care, medication administration, first aid, and clinical animal handling.",
+    order: 1,
+  },
+  {
+    id: "groomer",
+    name_es: "Groomer Certificada", name_en: "Certified Groomer",
+    institution: "Institución certificadora", year: "",
+    description_es: "Capacitación profesional en estética canina: baños, cortes, cepillado, limpieza de oídos y cuidado del pelaje.",
+    description_en: "Professional training in canine aesthetics: baths, cuts, brushing, ear cleaning, and coat care.",
+    order: 2,
+  },
+  {
+    id: "primeros-auxilios",
+    name_es: "Primeros Auxilios Animales", name_en: "Animal First Aid",
+    institution: "Institución certificadora", year: "",
+    description_es: "Entrenamiento en respuesta de emergencias, RCP animal, manejo de intoxicaciones y estabilización de pacientes.",
+    description_en: "Training in emergency response, animal CPR, toxication management, and patient stabilization.",
+    order: 3,
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    question_es: "¿Cuántas mascotas cuidas al mismo tiempo?",
+    question_en: "How many pets do you care for at the same time?",
+    answer_es: "Solo una mascota a la vez. Esto garantiza atención 100% personalizada y sin estrés para tu peludo.",
+    answer_en: "Only one pet at a time. This guarantees 100% personalized, stress-free care for your furry friend.",
+    order: 1,
+  },
+  {
+    question_es: "¿Qué incluye el servicio de hospedaje?",
+    question_en: "What does the boarding service include?",
+    answer_es: "Paseos diarios, alimentación según su rutina, juegos, compañía constante y reportes fotográficos todos los días para que tú estés tranquilo.",
+    answer_en: "Daily walks, feeding according to their routine, play, constant companionship, and daily photo reports so you can feel at ease.",
+    order: 2,
+  },
+  {
+    question_es: "¿Puedes administrar medicamentos?",
+    question_en: "Can you administer medications?",
+    answer_es: "Sí. Tengo formación como Auxiliar Veterinaria, así que puedo administrar medicamentos orales, tópicos e inyectables de forma segura.",
+    answer_en: "Yes. I have training as a Veterinary Assistant, so I can safely administer oral, topical, and injectable medications.",
+    order: 3,
+  },
+  {
+    question_es: "¿Dónde están ubicados?",
+    question_en: "Where are you located?",
+    answer_es: "En Medellín. Ofrezco servicio de transporte a costo adicional para recoger y entregar a tu mascota.",
+    answer_en: "In Medellín. I offer transportation service at an additional cost for pickup and drop-off.",
+    order: 4,
+  },
+  {
+    question_es: "¿Con cuánto tiempo debo reservar?",
+    question_en: "How far in advance should I book?",
+    answer_es: "Mínimo 2-3 semanas de anticipación para garantizar disponibilidad, especialmente en temporadas altas.",
+    answer_en: "At least 2-3 weeks in advance to ensure availability, especially during peak seasons.",
+    order: 5,
+  },
+  {
+    question_es: "¿Hacen visita previa?",
+    question_en: "Do you do a meet-and-greet visit?",
+    answer_es: "Sí, y es gratuita. Antes del primer hospedaje hacemos una visita de conocimiento para que tu mascota se familiarice conmigo y con el espacio.",
+    answer_en: "Yes, and it's free. Before the first stay we do a meet-and-greet so your pet can get familiar with me and the space.",
+    order: 6,
+  },
+  {
+    question_es: "¿Qué pasa en caso de emergencia veterinaria?",
+    question_en: "What happens in a veterinary emergency?",
+    answer_es: "Tengo clínicas veterinarias de confianza cerca. Mi formación me permite identificar señales de alerta y actuar rápido. Siempre te contacto de inmediato.",
+    answer_en: "I have trusted veterinary clinics nearby. My training allows me to identify warning signs and act fast. I always contact you immediately.",
+    order: 7,
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    id: "t1",
+    quote_es: "Dejé a mi golden con Anais por una semana y regresé a un perro feliz y bien cuidado. Los reportes diarios con fotos me dieron mucha tranquilidad durante el viaje.",
+    quote_en: "I left my golden with Anais for a week and came back to a happy, well-cared-for dog. The daily photo updates gave me so much peace of mind during the trip.",
+    author: "María Camila R.", pet: "Max · Golden Retriever",
+    service_es: "Hospedaje", service_en: "Boarding",
+    rating: 5, order: 1,
+  },
+  {
+    id: "t2",
+    quote_es: "Mi gata es muy especial y nerviosa con extraños, pero con las visitas diarias se adaptó perfecto. Llegaba a encontrar todo en orden y a Luna súper tranquila.",
+    quote_en: "My cat is very particular and nervous around strangers, but with the daily visits she adapted perfectly. I always came home to everything in order and Luna completely relaxed.",
+    author: "Andrés M.", pet: "Luna · Gata persa",
+    service_es: "Visitas Diarias", service_en: "Daily Visits",
+    rating: 5, order: 2,
+  },
+  {
+    id: "t3",
+    quote_es: "Excelente servicio para nuestra boda. Anais estuvo pendiente de Canela durante toda la ceremonia y las fotos con ella quedaron hermosas. Totalmente recomendada.",
+    quote_en: "Excellent service for our wedding. Anais kept an eye on Canela throughout the ceremony and the photos with her came out beautiful. Totally recommended.",
+    author: "Laura & Sebastián", pet: "Canela · Beagle",
+    service_es: "Acompañamiento en Eventos", service_en: "Event Accompaniment",
+    rating: 5, order: 3,
+  },
+];
+
+// ─── Seeders ──────────────────────────────────────────────────────────────────
+
+async function seedServices(client: ReturnType<typeof createClient>) {
+  for (const s of SERVICES) {
+    await client.createOrReplace({
+      _id: `service-${s.id}`, _type: "service",
+      name_es: s.name_es, name_en: s.name_en,
+      description_es: s.description_es, description_en: s.description_en,
+      detail_es: s.detail_es, detail_en: s.detail_en,
+      card_includes_es: s.card_includes_es, card_includes_en: s.card_includes_en,
+      includes_es: s.includes_es, includes_en: s.includes_en,
+      why_higher_es: s.why_higher_es, why_higher_en: s.why_higher_en,
+      benefits_es: s.benefits_es, benefits_en: s.benefits_en,
+      ideal_es: s.ideal_es, ideal_en: s.ideal_en,
+      conditions_es: s.conditions_es, conditions_en: s.conditions_en,
+      footer_note_es: s.footer_note_es, footer_note_en: s.footer_note_en,
+      price_large: s.price_large, price_small: s.price_small,
+      price_note_es: s.price_note_es, price_note_en: s.price_note_en,
+      unit_es: s.unit_es, unit_en: s.unit_en,
+      icon: s.icon, order: s.order, active: true,
+    });
+  }
+}
+
+async function seedCertifications(client: ReturnType<typeof createClient>) {
+  for (const c of CERTIFICATIONS) {
+    await client.createOrReplace({
+      _id: `certification-${c.id}`, _type: "certification",
+      name_es: c.name_es, name_en: c.name_en,
+      institution: c.institution, year: c.year,
+      description_es: c.description_es, description_en: c.description_en,
+      order: c.order, active: true,
+    });
+  }
+}
+
+async function seedFaq(client: ReturnType<typeof createClient>) {
+  for (const [i, f] of FAQ_ITEMS.entries()) {
+    await client.createOrReplace({
+      _id: `faq-${String(i + 1).padStart(2, "0")}`, _type: "faqItem",
+      question_es: f.question_es, question_en: f.question_en,
+      answer_es: f.answer_es, answer_en: f.answer_en,
+      order: f.order, active: true,
+    });
+  }
+}
+
+async function seedTestimonials(client: ReturnType<typeof createClient>) {
+  for (const t of TESTIMONIALS) {
+    await client.createOrReplace({
+      _id: `testimonial-${t.id}`, _type: "testimonial",
+      quote_es: t.quote_es, quote_en: t.quote_en,
+      author: t.author, pet: t.pet,
+      service_es: t.service_es, service_en: t.service_en,
+      rating: t.rating, order: t.order, active: true,
+    });
+  }
+}
+
+// ─── Public API ───────────────────────────────────────────────────────────────
+
+export async function checkAndSeed(): Promise<{ seeded: string[] }> {
+  const client = getClient();
+  if (!client) {
+    console.warn("[auto-seed] SANITY_API_WRITE_TOKEN not set — skipping seed.");
+    return { seeded: [] };
+  }
+
+  const seeded: string[] = [];
+
+  try {
+    const [noServices, noCerts, noFaq, noTestimonials] = await Promise.all([
+      isEmpty(client, "service"),
+      isEmpty(client, "certification"),
+      isEmpty(client, "faqItem"),
+      isEmpty(client, "testimonial"),
+    ]);
+
+    if (noServices) { await seedServices(client); seeded.push("services"); }
+    if (noCerts) { await seedCertifications(client); seeded.push("certifications"); }
+    if (noFaq) { await seedFaq(client); seeded.push("faq"); }
+    if (noTestimonials) { await seedTestimonials(client); seeded.push("testimonials"); }
+
+    if (seeded.length > 0) {
+      console.log(`[auto-seed] Seeded: ${seeded.join(", ")}`);
+    }
+  } catch (err) {
+    console.error("[auto-seed] Error:", err);
+  }
+
+  return { seeded };
+}
