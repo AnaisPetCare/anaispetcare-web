@@ -1,4 +1,5 @@
 import { createClient } from "next-sanity";
+import { groq } from "next-sanity";
 import {
   SERVICES_QUERY,
   CERTIFICATIONS_QUERY,
@@ -47,6 +48,11 @@ export const fetchFaq = (locale: string) =>
 
 export const fetchGallery = () =>
   safeFetch<{ id: string; src: string; caption?: string }>(GALLERY_QUERY);
+
+export const fetchNavPages = () =>
+  safeFetch<{ title: string; slug: string; navLabel?: string }>(
+    groq`*[_type == "page" && active != false && showInNav == true] | order(title asc) { title, "slug": slug.current, navLabel }`
+  );
 
 export const fetchTestimonials = (locale: string) =>
   safeFetch<{ id: string; quote: string; author: string; pet: string; service: string; rating: number }>(TESTIMONIALS_QUERY, { locale });

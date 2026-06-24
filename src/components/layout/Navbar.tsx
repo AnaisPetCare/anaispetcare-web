@@ -9,7 +9,9 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = ["services", "about", "gallery", "faq"] as const;
 
-export function Navbar({ locale }: { locale: string }) {
+interface CmsPage { title: string; slug: string; navLabel?: string; }
+
+export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: CmsPage[] }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const router = useRouter();
@@ -70,6 +72,16 @@ export function Navbar({ locale }: { locale: string }) {
               </button>
             </li>
           ))}
+          {cmsPages.map((page) => (
+            <li key={page.slug}>
+              <Link
+                href={`/${locale}/${page.slug}`}
+                className="px-4 py-2 text-sm font-body font-medium text-brown-dark hover:text-rose transition-colors rounded-full hover:bg-rose-pale/40"
+              >
+                {page.navLabel ?? page.title}
+              </Link>
+            </li>
+          ))}
         </ul>
 
         {/* Right actions */}
@@ -122,6 +134,17 @@ export function Navbar({ locale }: { locale: string }) {
               >
                 {t(key)}
               </button>
+            </li>
+          ))}
+          {cmsPages.map((page) => (
+            <li key={page.slug}>
+              <Link
+                href={`/${locale}/${page.slug}`}
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-left px-4 py-3 rounded-xl text-brown-dark font-body font-medium hover:bg-rose-pale/50 hover:text-rose transition-colors"
+              >
+                {page.navLabel ?? page.title}
+              </Link>
             </li>
           ))}
           <li className="pt-2">
