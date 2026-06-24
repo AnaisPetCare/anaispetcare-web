@@ -31,7 +31,7 @@ interface ServiceItem {
   icon: string;
 }
 
-function ServiceModal({ item, onClose }: { item: ServiceItem; onClose: () => void }) {
+function ServiceModal({ item, onClose, locale }: { item: ServiceItem; onClose: () => void; locale: string }) {
   const Icon = ICON_MAP[item.icon] ?? Home;
 
   useEffect(() => {
@@ -51,8 +51,7 @@ function ServiceModal({ item, onClose }: { item: ServiceItem; onClose: () => voi
     if (bookingEl) {
       setTimeout(() => bookingEl.scrollIntoView({ behavior: "smooth" }), 100);
     } else {
-      // Si estamos en una página del CMS, navegar a la landing
-      window.location.href = "/#booking";
+      window.location.href = `/${locale}/#booking`;
     }
   };
 
@@ -218,7 +217,7 @@ function ServiceModal({ item, onClose }: { item: ServiceItem; onClose: () => voi
   );
 }
 
-export function Services({ serverItems }: { serverItems?: ServiceItem[] }) {
+export function Services({ serverItems, locale = "es" }: { serverItems?: ServiceItem[]; locale?: string }) {
   const t = useTranslations("services");
   const fallback: ServiceItem[] = t.raw("items");
   const items = serverItems && serverItems.length > 0 ? serverItems : fallback;
@@ -297,7 +296,7 @@ export function Services({ serverItems }: { serverItems?: ServiceItem[] }) {
       </div>
 
       {/* Modal */}
-      {selected && <ServiceModal item={selected} onClose={() => setSelected(null)} />}
+      {selected && <ServiceModal item={selected} onClose={() => setSelected(null)} locale={locale} />}
     </section>
   );
 }

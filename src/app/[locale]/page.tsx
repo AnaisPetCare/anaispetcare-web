@@ -55,11 +55,11 @@ export default async function Page({
       <Navbar locale={locale} cmsPages={navPages ?? undefined} />
       <main>
         <Hero />
-        <Services serverItems={sanityServices ?? undefined} />
+        <Services serverItems={sanityServices ?? undefined} locale={locale} />
         <About />
         <Certifications serverItems={sanityCerts ?? undefined} />
         <Requirements />
-        <BookingForm />
+        <BookingForm serviceNames={sanityServices?.map((s) => s.name) ?? undefined} />
         <Gallery serverImages={sanityGallery ?? undefined} />
         <Testimonials serverItems={sanityTestimonials ?? undefined} />
         <FAQ serverItems={sanityFaq ?? undefined} />

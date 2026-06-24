@@ -29,9 +29,10 @@ const inputClass = cn(
 
 const labelClass = "block font-body text-sm font-semibold text-brown-dark mb-1.5";
 
-export function BookingForm() {
+export function BookingForm({ serviceNames }: { serviceNames?: string[] }) {
   const t = useTranslations("booking");
-  const services: string[] = t.raw("services");
+  const fallbackServices: string[] = t.raw("services");
+  const services = serviceNames && serviceNames.length > 0 ? serviceNames : fallbackServices;
 
   const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
