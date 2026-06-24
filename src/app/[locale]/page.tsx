@@ -9,11 +9,13 @@ import { Requirements } from "@/components/sections/Requirements";
 import { BookingForm } from "@/components/sections/BookingForm";
 import { Gallery } from "@/components/sections/Gallery";
 import { FAQ } from "@/components/sections/FAQ";
+import { Testimonials } from "@/components/sections/Testimonials";
 import {
   fetchServices,
   fetchCertifications,
   fetchFaq,
   fetchGallery,
+  fetchTestimonials,
 } from "@/sanity/lib/fetch";
 
 export default async function Page({
@@ -24,12 +26,13 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [servicesResult, certsResult, faqResult, galleryResult] =
+  const [servicesResult, certsResult, faqResult, galleryResult, testimonialsResult] =
     await Promise.allSettled([
       fetchServices(locale),
       fetchCertifications(locale),
       fetchFaq(locale),
       fetchGallery(),
+      fetchTestimonials(locale),
     ]);
 
   const sanityServices =
@@ -40,6 +43,8 @@ export default async function Page({
     faqResult.status === "fulfilled" ? faqResult.value : null;
   const sanityGallery =
     galleryResult.status === "fulfilled" ? galleryResult.value : null;
+  const sanityTestimonials =
+    testimonialsResult.status === "fulfilled" ? testimonialsResult.value : null;
 
   return (
     <>
@@ -52,6 +57,7 @@ export default async function Page({
         <Requirements />
         <BookingForm />
         <Gallery serverImages={sanityGallery ?? undefined} />
+        <Testimonials serverItems={sanityTestimonials ?? undefined} />
         <FAQ serverItems={sanityFaq ?? undefined} />
       </main>
       <Footer />

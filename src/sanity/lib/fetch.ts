@@ -4,6 +4,7 @@ import {
   CERTIFICATIONS_QUERY,
   FAQ_QUERY,
   GALLERY_QUERY,
+  TESTIMONIALS_QUERY,
 } from "./queries";
 
 const serverClient = createClient({
@@ -46,3 +47,6 @@ export const fetchFaq = (locale: string) =>
 
 export const fetchGallery = () =>
   safeFetch<{ id: string; src: string; caption?: string }>(GALLERY_QUERY);
+
+export const fetchTestimonials = (locale: string) =>
+  safeFetch<{ id: string; quote: string; author: string; pet: string; service: string; rating: number }>(TESTIMONIALS_QUERY, { locale });

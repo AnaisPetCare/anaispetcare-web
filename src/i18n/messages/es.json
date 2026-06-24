@@ -336,6 +336,36 @@
       }
     ]
   },
+  "testimonials": {
+    "title": "Lo que dicen nuestros clientes",
+    "subtitle": "Historias reales de peludos felices y dueños tranquilos",
+    "items": [
+      {
+        "id": "t1",
+        "quote": "Dejé a mi golden con Anais por una semana y regresé a un perro feliz y bien cuidado. Los reportes diarios con fotos me dieron mucha tranquilidad durante el viaje.",
+        "author": "María Camila R.",
+        "pet": "Max · Golden Retriever",
+        "service": "Hospedaje",
+        "rating": 5
+      },
+      {
+        "id": "t2",
+        "quote": "Mi gata es muy especial y nerviosa con extraños, pero con las visitas diarias se adaptó perfecto. Llegaba a encontrar todo en orden y a Luna súper tranquila.",
+        "author": "Andrés M.",
+        "pet": "Luna · Gata persa",
+        "service": "Visitas Diarias",
+        "rating": 5
+      },
+      {
+        "id": "t3",
+        "quote": "Excelente servicio para nuestra boda. Anais estuvo pendiente de Canela durante toda la ceremonia y las fotos con ella quedaron hermosas. Totalmente recomendada.",
+        "author": "Laura & Sebastián",
+        "pet": "Canela · Beagle",
+        "service": "Acompañamiento en Eventos",
+        "rating": 5
+      }
+    ]
+  },
   "contact": {
     "title": "Contáctame",
     "whatsapp": "Escríbeme por WhatsApp",
