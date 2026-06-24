@@ -244,8 +244,8 @@ const FAQ_ITEMS = [
   {
     question_es: "¿Con cuánto tiempo debo reservar?",
     question_en: "How far in advance should I book?",
-    answer_es: "Mínimo 2-3 semanas de anticipación para garantizar disponibilidad, especialmente en temporadas altas.",
-    answer_en: "At least 2-3 weeks in advance to ensure availability, especially during peak seasons.",
+    answer_es: "Depende del servicio: para cuidado en mi casa, con una semana de anticipación es suficiente. Para pernocta en tu hogar, recomiendo 2-3 semanas. Avisos de último momento (de un día para otro o emergencias) son posibles pero tienen un costo adicional.",
+    answer_en: "It depends on the service: for care at my home, one week in advance is enough. For overnight stays at your home, I recommend 2-3 weeks. Last-minute requests (next day or emergencies) are possible but carry an extra charge.",
     order: 5,
   },
   {
@@ -355,7 +355,7 @@ const REQUIREMENTS_DATA = [
   { id: "desparasitado", icon: "bug", title_es: "Desparasitado", title_en: "Dewormed", description_es: "Antiparasitario interno y externo vigente. Preferiblemente máximo 3 meses de antigüedad.", description_en: "Internal and external antiparasitic up to date. Preferably no more than 3 months old.", order: 2 },
   { id: "medicamentos", icon: "pill", title_es: "¿Toma medicamentos?", title_en: "Does it take medication?", description_es: "Infórmanos si tu mascota requiere medicamentos. Tengo formación para administrarlos de forma segura.", description_en: "Let us know if your pet requires medication. I'm trained to administer it safely.", order: 3 },
   { id: "miedos", icon: "alert", title_es: "¿Le tiene miedo a algo?", title_en: "Is it afraid of anything?", description_es: "Cuéntanos sus miedos, traumas o estímulos que lo alteran. Así podemos cuidarlo mejor.", description_en: "Tell us about their fears, traumas, or triggers. That way we can take better care of them.", order: 4 },
-  { id: "reserva", icon: "calendar", title_es: "Reserva anticipada", title_en: "Advance reservation", description_es: "Mínimo con 2-3 semanas de anticipación para garantizar disponibilidad.", description_en: "At least 2-3 weeks in advance to guarantee availability.", order: 5 },
+  { id: "reserva", icon: "calendar", title_es: "Reserva anticipada", title_en: "Advance reservation", description_es: "1 semana para cuidado en mi casa · 2-3 semanas para pernocta en tu hogar · Último momento posible con costo adicional.", description_en: "1 week for care at my home · 2-3 weeks for overnight at your home · Last-minute possible with extra charge.", order: 5 },
   { id: "visita", icon: "clipboard", title_es: "Visita previa", title_en: "Meet-and-greet visit", description_es: "Hacemos una visita de conocimiento sin costo para que tu peludo se familiarice conmigo.", description_en: "We do a free meet-and-greet so your pet can get familiar with me.", order: 6 },
 ];
 
