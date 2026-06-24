@@ -184,16 +184,16 @@ function ServiceModal({ item, onClose, locale }: { item: ServiceItem; onClose: (
         {/* Footer: price + CTA */}
         <div className="sticky bottom-0 bg-white border-t border-cream-border px-6 py-4 flex items-center justify-between gap-3">
           <div>
-            {item.price_large ? (
+            {(item.price_large || item.price_small) ? (
               <>
                 <p className="font-body text-xs text-brown-dark/40 uppercase tracking-wide">Desde</p>
                 <p className="font-heading font-bold text-2xl text-rose leading-tight">
-                  ${item.price_large}
+                  ${item.price_large || item.price_small}
                   {item.unit && (
                     <span className="text-sm font-body font-normal text-brown-dark/50 ml-1">/ {item.unit}</span>
                   )}
                 </p>
-                {item.price_small && (
+                {item.price_large && item.price_small && (
                   <p className="text-xs font-body text-brown-dark/40">Pequeños desde ${item.price_small}</p>
                 )}
                 {item.note && (
@@ -276,10 +276,10 @@ export function Services({ serverItems, locale = "es" }: { serverItems?: Service
 
                 {/* Bottom row */}
                 <div className="flex items-center justify-between mt-4">
-                  {item.price_large ? (
+                  {(item.price_large || item.price_small) ? (
                     <span className="font-heading font-bold text-xl text-rose">
-                      ${item.price_large}
-                      <span className="text-sm font-body font-normal text-brown-dark/40 ml-1">/ {item.unit}</span>
+                      ${item.price_large || item.price_small}
+                      {item.unit && <span className="text-sm font-body font-normal text-brown-dark/40 ml-1">/ {item.unit}</span>}
                     </span>
                   ) : (
                     <span className="text-xs font-body text-brown-dark/40 italic">{item.note}</span>
