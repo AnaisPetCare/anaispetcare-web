@@ -10,8 +10,10 @@ export const requirementItem = defineType({
       options: { list: [
         { title: "💉 Jeringa (vacunas)", value: "syringe" },
         { title: "🐛 Bug (desparasitado)", value: "bug" },
+        { title: "💊 Píldora (medicamentos)", value: "pill" },
+        { title: "⚠️ Alerta (miedos/cuidados)", value: "alert" },
         { title: "🍴 Comida", value: "utensils" },
-        { title: "❤️ Corazón (temperamento)", value: "heart" },
+        { title: "❤️ Corazón", value: "heart" },
         { title: "📅 Calendario (reserva)", value: "calendar" },
         { title: "📋 Portapapeles (visita)", value: "clipboard" },
       ], layout: "radio" },
