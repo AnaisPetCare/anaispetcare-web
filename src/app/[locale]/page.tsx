@@ -11,12 +11,14 @@ import { Gallery } from "@/components/sections/Gallery";
 import { FAQ } from "@/components/sections/FAQ";
 import { Testimonials } from "@/components/sections/Testimonials";
 import {
+  fetchSettings,
   fetchServices,
   fetchCertifications,
   fetchFaq,
   fetchGallery,
   fetchTestimonials,
   fetchNavPages,
+  fetchRequirements,
 } from "@/sanity/lib/fetch";
 
 export default async function Page({
@@ -27,38 +29,44 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [servicesResult, certsResult, faqResult, galleryResult, testimonialsResult, navPagesResult] =
-    await Promise.allSettled([
-      fetchServices(locale),
-      fetchCertifications(locale),
-      fetchFaq(locale),
-      fetchGallery(),
-      fetchTestimonials(locale),
-      fetchNavPages(),
-    ]);
+  const [
+    settingsResult,
+    servicesResult,
+    certsResult,
+    faqResult,
+    galleryResult,
+    testimonialsResult,
+    navPagesResult,
+    requirementsResult,
+  ] = await Promise.allSettled([
+    fetchSettings(),
+    fetchServices(locale),
+    fetchCertifications(locale),
+    fetchFaq(locale),
+    fetchGallery(),
+    fetchTestimonials(locale),
+    fetchNavPages(),
+    fetchRequirements(locale),
+  ]);
 
-  const sanityServices =
-    servicesResult.status === "fulfilled" ? servicesResult.value : null;
-  const sanityCerts =
-    certsResult.status === "fulfilled" ? certsResult.value : null;
-  const sanityFaq =
-    faqResult.status === "fulfilled" ? faqResult.value : null;
-  const sanityGallery =
-    galleryResult.status === "fulfilled" ? galleryResult.value : null;
-  const sanityTestimonials =
-    testimonialsResult.status === "fulfilled" ? testimonialsResult.value : null;
-  const navPages =
-    navPagesResult.status === "fulfilled" ? navPagesResult.value : null;
+  const settings = settingsResult.status === "fulfilled" ? settingsResult.value : null;
+  const sanityServices = servicesResult.status === "fulfilled" ? servicesResult.value : null;
+  const sanityCerts = certsResult.status === "fulfilled" ? certsResult.value : null;
+  const sanityFaq = faqResult.status === "fulfilled" ? faqResult.value : null;
+  const sanityGallery = galleryResult.status === "fulfilled" ? galleryResult.value : null;
+  const sanityTestimonials = testimonialsResult.status === "fulfilled" ? testimonialsResult.value : null;
+  const navPages = navPagesResult.status === "fulfilled" ? navPagesResult.value : null;
+  const sanityRequirements = requirementsResult.status === "fulfilled" ? requirementsResult.value : null;
 
   return (
     <>
       <Navbar locale={locale} cmsPages={navPages ?? []} />
       <main>
-        <Hero />
+        <Hero settings={settings} locale={locale} />
         <Services serverItems={sanityServices ?? []} locale={locale} />
-        <About />
+        <About settings={settings} locale={locale} />
         <Certifications serverItems={sanityCerts ?? []} />
-        <Requirements />
+        <Requirements serverItems={sanityRequirements ?? []} />
         <BookingForm serviceNames={sanityServices?.map((s) => s.name) ?? []} />
         <Gallery serverImages={sanityGallery ?? undefined} />
         <Testimonials serverItems={sanityTestimonials ?? []} />

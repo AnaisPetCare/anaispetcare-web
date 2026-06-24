@@ -1,11 +1,13 @@
 import { createClient } from "next-sanity";
 import { groq } from "next-sanity";
 import {
+  SETTINGS_QUERY,
   SERVICES_QUERY,
   CERTIFICATIONS_QUERY,
   FAQ_QUERY,
   GALLERY_QUERY,
   TESTIMONIALS_QUERY,
+  REQUIREMENTS_QUERY,
 } from "./queries";
 
 const serverClient = createClient({
@@ -56,3 +58,27 @@ export const fetchNavPages = () =>
 
 export const fetchTestimonials = (locale: string) =>
   safeFetch<{ id: string; quote: string; author: string; pet: string; service: string; rating: number }>(TESTIMONIALS_QUERY, { locale });
+
+export const fetchRequirements = (locale: string) =>
+  safeFetch<{ icon: string; title: string; description: string }>(REQUIREMENTS_QUERY, { locale });
+
+export async function fetchSettings(): Promise<{
+  profilePhotoUrl?: string;
+  about_es?: string; about_en?: string;
+  about_title_es?: string; about_title_en?: string;
+  about_subtitle_es?: string; about_subtitle_en?: string;
+  hero_badge?: string;
+  hero_title_es?: string; hero_title_en?: string;
+  hero_title_highlight_es?: string; hero_title_highlight_en?: string;
+  hero_subtitle_es?: string; hero_subtitle_en?: string;
+  hero_description_es?: string; hero_description_en?: string;
+  whatsapp?: string; instagram?: string;
+} | null> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId || projectId === "TU_PROJECT_ID_AQUI") return null;
+  try {
+    return await serverClient.fetch(SETTINGS_QUERY, {}, REVALIDATE);
+  } catch {
+    return null;
+  }
+}

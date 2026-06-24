@@ -16,9 +16,9 @@ interface ReqItem {
   description: string;
 }
 
-export function Requirements() {
+export function Requirements({ serverItems }: { serverItems?: ReqItem[] }) {
   const t = useTranslations("requirements");
-  const items: ReqItem[] = t.raw("items");
+  const items = serverItems ?? [];
 
   return (
     <section className="py-24 px-4 sm:px-6 bg-cream-dark">
@@ -37,29 +37,31 @@ export function Requirements() {
         </div>
 
         {/* Requirements grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {items.map((item, i) => {
-            const Icon = ICON_MAP[item.icon] ?? Heart;
-            return (
-              <div
-                key={i}
-                className="flex gap-4 bg-white rounded-2xl p-6 border border-cream-border shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="w-10 h-10 bg-rose-pale rounded-xl flex items-center justify-center shrink-0 mt-0.5">
-                  <Icon size={18} className="text-rose" />
+        {items.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {items.map((item, i) => {
+              const Icon = ICON_MAP[item.icon] ?? Heart;
+              return (
+                <div
+                  key={i}
+                  className="flex gap-4 bg-white rounded-2xl p-6 border border-cream-border shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="w-10 h-10 bg-rose-pale rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+                    <Icon size={18} className="text-rose" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-base text-brown-dark mb-1.5">
+                      {item.title}
+                    </h3>
+                    <p className="font-body text-sm text-brown-dark/60 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-heading font-bold text-base text-brown-dark mb-1.5">
-                    {item.title}
-                  </h3>
-                  <p className="font-body text-sm text-brown-dark/60 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Bottom CTA banner */}
         <div className="mt-12 bg-rose rounded-3xl px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg">

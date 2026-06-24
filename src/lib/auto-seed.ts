@@ -304,6 +304,52 @@ async function seedTestimonials(client: ReturnType<typeof createClient>) {
   }
 }
 
+const REQUIREMENTS_DATA = [
+  { id: "vacunas", icon: "syringe", title_es: "Vacunas al día", title_en: "Up-to-date vaccines", description_es: "Parvovirus, moquillo, hepatitis y rabia. Necesitamos ver el carnet veterinario.", description_en: "Parvovirus, distemper, hepatitis, and rabies. We need to see the vet card.", order: 1 },
+  { id: "desparasitado", icon: "bug", title_es: "Desparasitado", title_en: "Dewormed", description_es: "Antiparasitario interno y externo vigente. Preferiblemente máximo 3 meses de antigüedad.", description_en: "Internal and external antiparasitic up to date. Preferably no more than 3 months old.", order: 2 },
+  { id: "comida", icon: "utensils", title_es: "Su propia comida", title_en: "Their own food", description_es: "Trae la comida de tu peludo para no cambiar su dieta ni causarle malestares.", description_en: "Bring your pet's food to avoid changing their diet and causing discomfort.", order: 3 },
+  { id: "temperamento", icon: "heart", title_es: "Temperamento sociable", title_en: "Friendly temperament", description_es: "No recibimos mascotas con historial de agresividad. La seguridad de todos es primero.", description_en: "We don't accept pets with a history of aggression. Everyone's safety comes first.", order: 4 },
+  { id: "reserva", icon: "calendar", title_es: "Reserva anticipada", title_en: "Advance reservation", description_es: "Mínimo con 2-3 semanas de anticipación para garantizar disponibilidad.", description_en: "At least 2-3 weeks in advance to guarantee availability.", order: 5 },
+  { id: "visita", icon: "clipboard", title_es: "Visita previa", title_en: "Meet-and-greet visit", description_es: "Hacemos una visita de conocimiento sin costo para que tu peludo se familiarice conmigo.", description_en: "We do a free meet-and-greet so your pet can get familiar with me.", order: 6 },
+];
+
+async function seedRequirements(client: ReturnType<typeof createClient>) {
+  for (const r of REQUIREMENTS_DATA) {
+    await client.createOrReplace({
+      _id: `requirement-${r.id}`, _type: "requirementItem",
+      icon: r.icon, title_es: r.title_es, title_en: r.title_en,
+      description_es: r.description_es, description_en: r.description_en,
+      order: r.order, active: true,
+    });
+  }
+}
+
+async function seedSettings(client: ReturnType<typeof createClient>) {
+  // Create document if it doesn't exist yet
+  await client.createIfNotExists({ _id: "settings", _type: "settings" });
+  // Only fill fields that are currently empty (never overwrite Katherine's content)
+  await client.patch("settings").setIfMissing({
+    whatsapp: "573208504292",
+    instagram: "anaispcareservices",
+    email: "anaisrodriguez2@icloud.com",
+    hero_badge: "Medellín · Cuidado con amor",
+    hero_title_es: "Tu mascota,",
+    hero_title_en: "Your pet,",
+    hero_title_highlight_es: "nuestra familia",
+    hero_title_highlight_en: "our family",
+    hero_subtitle_es: "Atención personalizada. Amor que se siente.",
+    hero_subtitle_en: "Personalized care. Love you can feel.",
+    hero_description_es: "Cuidado profesional con formación veterinaria y groomer. Una mascota a la vez, siempre. Porque tu mejor amigo merece lo mejor.",
+    hero_description_en: "Professional care with veterinary and groomer training. One pet at a time, always. Because your best friend deserves the best.",
+    about_title_es: "Hola, soy Anais",
+    about_title_en: "Hi, I'm Anais",
+    about_subtitle_es: "Tu aliada en el cuidado de peludos",
+    about_subtitle_en: "Your ally in pet care",
+    about_es: "Soy una apasionada del bienestar animal con formación como Auxiliar Veterinaria y Groomer certificada. Creo que cada mascota merece un cuidado tan especial como el que le das en casa — por eso trabajo con una sola mascota a la vez.\n\nMi hogar es su hogar. Paseos, juegos, mimos y reportes fotográficos diarios para que tú disfrutes tu viaje tranquilo y tu peludo también.",
+    about_en: "I'm passionate about animal welfare with training as a Veterinary Assistant and certified Groomer. I believe every pet deserves care as special as what you give them at home — that's why I work with only one pet at a time.\n\nMy home is their home. Walks, play, cuddles, and daily photo reports so you can enjoy your trip worry-free, and your furry friend too.",
+  }).commit();
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 export async function checkAndSeed(): Promise<{ seeded: string[] }> {
@@ -316,17 +362,22 @@ export async function checkAndSeed(): Promise<{ seeded: string[] }> {
   const seeded: string[] = [];
 
   try {
-    const [noServices, noCerts, noFaq, noTestimonials] = await Promise.all([
+    const [noServices, noCerts, noFaq, noTestimonials, noRequirements] = await Promise.all([
       isEmpty(client, "service"),
       isEmpty(client, "certification"),
       isEmpty(client, "faqItem"),
       isEmpty(client, "testimonial"),
+      isEmpty(client, "requirementItem"),
     ]);
+
+    // Settings always gets patched (setIfMissing is safe — never overwrites)
+    await seedSettings(client); seeded.push("settings");
 
     if (noServices) { await seedServices(client); seeded.push("services"); }
     if (noCerts) { await seedCertifications(client); seeded.push("certifications"); }
     if (noFaq) { await seedFaq(client); seeded.push("faq"); }
     if (noTestimonials) { await seedTestimonials(client); seeded.push("testimonials"); }
+    if (noRequirements) { await seedRequirements(client); seeded.push("requirements"); }
 
     if (seeded.length > 0) {
       console.log(`[auto-seed] Seeded: ${seeded.join(", ")}`);

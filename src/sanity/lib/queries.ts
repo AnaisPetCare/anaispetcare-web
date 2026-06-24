@@ -50,6 +50,29 @@ export const TESTIMONIALS_QUERY = groq`
   }
 `;
 
+export const SETTINGS_QUERY = groq`
+  *[_type == "settings" && _id == "settings"][0] {
+    "profilePhotoUrl": profilePhoto.asset->url,
+    about_es, about_en,
+    about_title_es, about_title_en,
+    about_subtitle_es, about_subtitle_en,
+    hero_badge,
+    hero_title_es, hero_title_en,
+    hero_title_highlight_es, hero_title_highlight_en,
+    hero_subtitle_es, hero_subtitle_en,
+    hero_description_es, hero_description_en,
+    whatsapp, instagram, email
+  }
+`;
+
+export const REQUIREMENTS_QUERY = groq`
+  *[_type == "requirementItem" && active != false] | order(order asc) {
+    icon,
+    "title": select($locale == "en" => coalesce(title_en, title_es), title_es),
+    "description": select($locale == "en" => coalesce(description_en, description_es), description_es)
+  }
+`;
+
 export const GALLERY_QUERY = groq`
   coalesce(
     *[_type == "gallery"][0].images[active != false][defined(image)] {

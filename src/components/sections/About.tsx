@@ -1,8 +1,25 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Award, Star, Shield } from "lucide-react";
 
-export function About() {
+interface Settings {
+  profilePhotoUrl?: string;
+  about_es?: string; about_en?: string;
+  about_title_es?: string; about_title_en?: string;
+  about_subtitle_es?: string; about_subtitle_en?: string;
+}
+
+function loc(es: string | undefined, en: string | undefined, locale: string) {
+  return locale === "en" ? (en || es || "") : (es || "");
+}
+
+export function About({ settings, locale = "es" }: { settings?: Settings | null; locale?: string }) {
   const t = useTranslations("about");
+
+  const title = loc(settings?.about_title_es, settings?.about_title_en, locale) || t("title");
+  const subtitle = loc(settings?.about_subtitle_es, settings?.about_subtitle_en, locale) || t("subtitle");
+  const body = loc(settings?.about_es, settings?.about_en, locale);
+  const paragraphs = body ? body.split("\n\n").filter(Boolean) : [t("description"), t("description2")];
 
   const certs = [
     { icon: Award, label: t("cert1"), color: "bg-rose-pale text-rose" },
@@ -20,13 +37,23 @@ export function About() {
               {/* Blob bg */}
               <div className="absolute -inset-8 bg-rose-pale/50 blob" />
 
-              {/* Photo placeholder */}
+              {/* Photo */}
               <div className="relative z-10 w-72 h-80 sm:w-80 sm:h-96 rounded-3xl overflow-hidden bg-cream-dark border-4 border-white shadow-2xl flex items-center justify-center">
-                <div className="text-center px-6">
-                  <div className="text-6xl mb-4">🐾</div>
-                  <p className="font-heading text-brown-dark font-semibold text-lg">Foto de Anais</p>
-                  <p className="font-body text-brown-dark/50 text-sm mt-1">Pendiente de subir</p>
-                </div>
+                {settings?.profilePhotoUrl ? (
+                  <Image
+                    src={settings.profilePhotoUrl}
+                    alt="Anais"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 288px, 320px"
+                  />
+                ) : (
+                  <div className="text-center px-6">
+                    <div className="text-6xl mb-4">🐾</div>
+                    <p className="font-heading text-brown-dark font-semibold text-lg">Foto de Anais</p>
+                    <p className="font-body text-brown-dark/50 text-sm mt-1">Pendiente de subir</p>
+                  </div>
+                )}
               </div>
 
               {/* Experience badge */}
@@ -53,16 +80,15 @@ export function About() {
               Sobre mí
             </span>
             <h2 className="font-heading text-4xl sm:text-5xl font-bold text-brown-dark mb-2">
-              {t("title")}
+              {title}
             </h2>
-            <p className="font-heading italic text-rose text-lg mb-6">{t("subtitle")}</p>
+            <p className="font-heading italic text-rose text-lg mb-6">{subtitle}</p>
 
-            <p className="font-body text-brown-dark/70 text-base leading-relaxed mb-4">
-              {t("description")}
-            </p>
-            <p className="font-body text-brown-dark/70 text-base leading-relaxed mb-8">
-              {t("description2")}
-            </p>
+            <div className="space-y-4 mb-8">
+              {paragraphs.map((p, i) => (
+                <p key={i} className="font-body text-brown-dark/70 text-base leading-relaxed">{p}</p>
+              ))}
+            </div>
 
             {/* Certification badges */}
             <div className="flex flex-wrap gap-3">

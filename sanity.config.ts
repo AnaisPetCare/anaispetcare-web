@@ -26,6 +26,9 @@ export default defineConfig({
               .title("📸 Galería de fotos")
               .child(S.documentTypeList("galleryImage").title("Fotos")),
             S.listItem()
+              .title("📋 Requisitos de ingreso")
+              .child(S.documentTypeList("requirementItem").title("Requisitos")),
+            S.listItem()
               .title("❓ Preguntas frecuentes")
               .child(S.documentTypeList("faqItem").title("Preguntas")),
             S.listItem()

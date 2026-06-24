@@ -2,9 +2,27 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { MessageCircle, ChevronDown } from "lucide-react";
 
-export function Hero() {
+interface Settings {
+  hero_badge?: string;
+  hero_title_es?: string; hero_title_en?: string;
+  hero_title_highlight_es?: string; hero_title_highlight_en?: string;
+  hero_subtitle_es?: string; hero_subtitle_en?: string;
+  hero_description_es?: string; hero_description_en?: string;
+}
+
+function loc(es: string | undefined, en: string | undefined, locale: string) {
+  return locale === "en" ? (en || es || "") : (es || "");
+}
+
+export function Hero({ settings, locale = "es" }: { settings?: Settings | null; locale?: string }) {
   const t = useTranslations("hero");
   const trust = useTranslations("trust");
+
+  const badge = settings?.hero_badge || t("badge");
+  const title = loc(settings?.hero_title_es, settings?.hero_title_en, locale) || t("title");
+  const titleHighlight = loc(settings?.hero_title_highlight_es, settings?.hero_title_highlight_en, locale) || t("title_highlight");
+  const subtitle = loc(settings?.hero_subtitle_es, settings?.hero_subtitle_en, locale) || t("subtitle");
+  const description = loc(settings?.hero_description_es, settings?.hero_description_en, locale) || t("description");
 
   const TRUST_ITEMS = ["item1", "item2", "item3", "item4"] as const;
   const TRUST_ICONS = ["🎓", "✂️", "🐾", "📸"];
@@ -38,24 +56,24 @@ export function Hero() {
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-cream-border rounded-full px-4 py-2 mb-6 shadow-sm">
               <span className="text-base">🐾</span>
               <span className="text-sm font-body font-semibold text-brown-dark">
-                {t("badge")}
+                {badge}
               </span>
             </div>
 
             {/* Heading */}
             <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold text-brown-dark leading-tight mb-4">
-              {t("title")}
+              {title}
               <br />
-              <span className="text-rose italic">{t("title_highlight")}</span>
+              <span className="text-rose italic">{titleHighlight}</span>
             </h1>
 
             {/* Tagline */}
             <p className="font-heading text-lg sm:text-xl text-brown italic text-brown/80 mb-4">
-              {t("subtitle")}
+              {subtitle}
             </p>
 
             <p className="font-body text-brown-dark/70 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
-              {t("description")}
+              {description}
             </p>
 
             {/* CTAs */}

@@ -5,6 +5,7 @@ import { faqItem } from "./faqItem";
 import { settings } from "./settings";
 import { certification } from "./certification";
 import { testimonial } from "./testimonial";
+import { requirementItem } from "./requirementItem";
 import { page } from "./page";
 import {
   heroBlock, textBlock, imageBlock, cardsBlock, ctaBlock,
@@ -13,7 +14,7 @@ import {
 } from "./blocks";
 
 export const schemaTypes = [
-  settings, service, certification, testimonial, gallery, galleryImage, faqItem,
+  settings, service, certification, testimonial, gallery, galleryImage, faqItem, requirementItem,
   page,
   heroBlock, textBlock, imageBlock, cardsBlock, ctaBlock,
   accordionBlock, galleryBlock, twoColumnsBlock, videoBlock,
