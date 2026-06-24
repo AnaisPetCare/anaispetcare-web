@@ -52,7 +52,7 @@ export default async function DynamicPage({ params }: Props) {
     <>
       <Navbar locale={locale} cmsPages={navPages ?? undefined} />
       <main>
-        <BlockRenderer blocks={page.blocks ?? []} />
+        <BlockRenderer blocks={page.blocks ?? []} locale={locale} />
       </main>
       <Footer />
     </>
