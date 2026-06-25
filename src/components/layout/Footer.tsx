@@ -77,7 +77,7 @@ export function Footer({ whatsapp = "573208504292", instagram = "anaispcareservi
                   className="flex items-center gap-2.5 text-cream/60 hover:text-rose-light transition-colors text-sm font-body"
                 >
                   <ExternalLink size={16} className="text-rose-light shrink-0" />
-                  {t("contact.instagram")}
+                  @{instagram}
                 </a>
               </li>
               <li>
