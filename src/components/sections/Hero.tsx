@@ -8,6 +8,7 @@ interface Settings {
   hero_title_highlight_es?: string; hero_title_highlight_en?: string;
   hero_subtitle_es?: string; hero_subtitle_en?: string;
   hero_description_es?: string; hero_description_en?: string;
+  whatsapp?: string;
 }
 
 function loc(es: string | undefined, en: string | undefined, locale: string) {
@@ -74,7 +75,7 @@ export function Hero({ settings, locale = "es" }: { settings?: Settings | null; 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 mb-12">
               <a
-                href="https://wa.me/573208504292"
+                href={`https://wa.me/${settings?.whatsapp ?? "573208504292"}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-rose text-white px-7 py-3.5 rounded-full font-body font-semibold text-base hover:bg-rose-hover shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"

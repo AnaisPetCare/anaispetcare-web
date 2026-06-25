@@ -60,19 +60,19 @@ export default async function Page({
 
   return (
     <>
-      <Navbar locale={locale} cmsPages={navPages ?? []} />
+      <Navbar locale={locale} cmsPages={navPages ?? []} whatsapp={settings?.whatsapp} />
       <main>
         <Hero settings={settings} locale={locale} />
         <Services serverItems={sanityServices ?? []} locale={locale} />
         <About settings={settings} locale={locale} />
         <Certifications serverItems={sanityCerts ?? []} />
-        <Requirements serverItems={sanityRequirements ?? []} />
-        <BookingForm serviceNames={sanityServices?.map((s) => s.name) ?? []} />
+        <Requirements serverItems={sanityRequirements ?? []} whatsapp={settings?.whatsapp} />
+        <BookingForm serviceNames={sanityServices?.map((s) => s.name) ?? []} whatsapp={settings?.whatsapp} />
         <Gallery serverImages={sanityGallery ?? undefined} />
         <Testimonials serverItems={sanityTestimonials ?? []} />
-        <FAQ serverItems={sanityFaq ?? []} />
+        <FAQ serverItems={sanityFaq ?? []} whatsapp={settings?.whatsapp} />
       </main>
-      <Footer />
+      <Footer whatsapp={settings?.whatsapp} instagram={settings?.instagram} />
     </>
   );
 }

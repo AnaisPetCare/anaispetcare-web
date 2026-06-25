@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ExternalLink, Mail, MapPin, MessageCircle } from "lucide-react";
 
-export function Footer() {
+export function Footer({ whatsapp = "573208504292", instagram = "anaispcareservices" }: { whatsapp?: string; instagram?: string }) {
   const t = useTranslations();
   const nav = useTranslations("nav");
 
@@ -60,7 +60,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="https://wa.me/573208504292"
+                  href={`https://wa.me/${whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2.5 text-cream/60 hover:text-rose-light transition-colors text-sm font-body"
@@ -71,7 +71,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://instagram.com/anaispcareservices"
+                  href={`https://instagram.com/${instagram}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2.5 text-cream/60 hover:text-rose-light transition-colors text-sm font-body"

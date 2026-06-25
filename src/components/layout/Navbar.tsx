@@ -11,7 +11,7 @@ const NAV_LINKS = ["services", "about", "gallery", "faq"] as const;
 
 interface CmsPage { title: string; slug: string; navLabel?: string; }
 
-export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: CmsPage[] }) {
+export function Navbar({ locale, cmsPages = [], whatsapp = "573208504292" }: { locale: string; cmsPages?: CmsPage[]; whatsapp?: string }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const router = useRouter();
@@ -105,7 +105,7 @@ export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: C
 
           {/* WhatsApp CTA */}
           <a
-            href="https://wa.me/573208504292"
+            href={`https://wa.me/${whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-2 bg-rose text-white px-4 py-2 rounded-full text-sm font-body font-semibold hover:bg-rose-hover transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
@@ -155,7 +155,7 @@ export function Navbar({ locale, cmsPages = [] }: { locale: string; cmsPages?: C
           ))}
           <li className="pt-2">
             <a
-              href="https://wa.me/573208504292"
+              href={`https://wa.me/${whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-rose text-white px-4 py-3 rounded-xl text-sm font-body font-semibold"

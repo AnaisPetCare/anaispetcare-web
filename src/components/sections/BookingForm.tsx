@@ -29,7 +29,7 @@ const inputClass = cn(
 
 const labelClass = "block font-body text-sm font-semibold text-brown-dark mb-1.5";
 
-export function BookingForm({ serviceNames }: { serviceNames?: string[] }) {
+export function BookingForm({ serviceNames, whatsapp = "573208504292" }: { serviceNames?: string[]; whatsapp?: string }) {
   const t = useTranslations("booking");
   const services = serviceNames ?? [];
 
@@ -62,7 +62,7 @@ export function BookingForm({ serviceNames }: { serviceNames?: string[] }) {
       .join("\n");
 
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/573208504292?text=${encoded}`, "_blank");
+    window.open(`https://wa.me/${whatsapp}?text=${encoded}`, "_blank");
   };
 
   return (

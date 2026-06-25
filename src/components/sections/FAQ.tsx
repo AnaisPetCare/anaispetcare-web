@@ -6,7 +6,7 @@ interface FaqItem {
   a: string;
 }
 
-export function FAQ({ serverItems }: { serverItems?: FaqItem[] }) {
+export function FAQ({ serverItems, whatsapp = "573208504292" }: { serverItems?: FaqItem[]; whatsapp?: string }) {
   const t = useTranslations("faq");
   const items = serverItems ?? [];
 
@@ -32,7 +32,7 @@ export function FAQ({ serverItems }: { serverItems?: FaqItem[] }) {
             ¿No encontraste tu pregunta?
           </p>
           <a
-            href="https://wa.me/573208504292"
+            href={`https://wa.me/${whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-rose text-white font-body font-semibold px-6 py-3 rounded-full hover:bg-rose-hover transition-colors shadow-md hover:shadow-lg"

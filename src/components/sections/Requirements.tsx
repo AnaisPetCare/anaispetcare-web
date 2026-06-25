@@ -19,7 +19,7 @@ interface ReqItem {
   description: string;
 }
 
-export function Requirements({ serverItems }: { serverItems?: ReqItem[] }) {
+export function Requirements({ serverItems, whatsapp = "573208504292" }: { serverItems?: ReqItem[]; whatsapp?: string }) {
   const t = useTranslations("requirements");
   const items = serverItems ?? [];
 
@@ -77,7 +77,7 @@ export function Requirements({ serverItems }: { serverItems?: ReqItem[] }) {
             </p>
           </div>
           <a
-            href="https://wa.me/573208504292"
+            href={`https://wa.me/${whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 bg-white text-rose font-body font-bold px-6 py-3 rounded-full hover:bg-cream-dark transition-colors shadow-md"

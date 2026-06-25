@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
-import { fetchNavPages } from "@/sanity/lib/fetch";
+import { fetchNavPages, fetchSettings } from "@/sanity/lib/fetch";
 
 export const revalidate = 10;
 
@@ -41,20 +41,21 @@ export default async function DynamicPage({ params }: Props) {
 
   const slugPath = slug.join("/");
 
-  const [page, navPages] = await Promise.all([
+  const [page, navPages, settings] = await Promise.all([
     client.fetch(PAGE_QUERY, { slug: slugPath }, { next: { revalidate: 10 } }),
     fetchNavPages(),
+    fetchSettings(),
   ]);
 
   if (!page) notFound();
 
   return (
     <>
-      <Navbar locale={locale} cmsPages={navPages ?? undefined} />
+      <Navbar locale={locale} cmsPages={navPages ?? undefined} whatsapp={settings?.whatsapp} />
       <main>
         <BlockRenderer blocks={page.blocks ?? []} locale={locale} />
       </main>
-      <Footer />
+      <Footer whatsapp={settings?.whatsapp} instagram={settings?.instagram} />
     </>
   );
 }
