@@ -92,26 +92,28 @@ export function Hero({ settings, locale = "es" }: { settings?: Settings | null; 
 
           </div>
 
-          {/* Right: banner image */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-lg">
-              {/* Blob behind image */}
-              <div className="absolute -inset-6 bg-rose-pale/60 blob" />
-              <Image
-                src={settings?.heroBannerUrl ?? "/banner.png"}
-                alt="Anais Pet Care"
-                width={560}
-                height={380}
-                className="relative z-10 w-full rounded-3xl shadow-2xl object-cover"
-                priority
-              />
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 z-20 bg-white rounded-2xl shadow-lg px-4 py-3 border border-cream-border">
-                <p className="font-body text-xs text-brown-dark/60 font-medium">Atención exclusiva</p>
-                <p className="font-heading font-bold text-brown-dark text-sm">Una mascota a la vez 🐶</p>
+          {/* Right: banner image — hidden when no CMS image is set */}
+          {settings?.heroBannerUrl && (
+            <div className="relative flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-lg">
+                {/* Blob behind image */}
+                <div className="absolute -inset-6 bg-rose-pale/60 blob" />
+                <Image
+                  src={settings.heroBannerUrl}
+                  alt="Anais Pet Care"
+                  width={560}
+                  height={380}
+                  className="relative z-10 w-full rounded-3xl shadow-2xl object-cover"
+                  priority
+                />
+                {/* Floating badge */}
+                <div className="absolute -bottom-4 -left-4 z-20 bg-white rounded-2xl shadow-lg px-4 py-3 border border-cream-border">
+                  <p className="font-body text-xs text-brown-dark/60 font-medium">Atención exclusiva</p>
+                  <p className="font-heading font-bold text-brown-dark text-sm">Una mascota a la vez 🐶</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
